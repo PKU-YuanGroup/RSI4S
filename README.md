@@ -9,7 +9,7 @@ Each task gives an agent system a scientific objective, authorized data and a sh
 - **Task Agent** reads the task, writes and runs code, trains models, evaluates on validation data and requests labels.
 - **Meta Agent** reviews the history, improves the next Task Agent (prompt, tools, control flow) and decides which labels to buy.
 
-After research, Meta selects one existing model; the host freezes it and scores it **once** on the held-out Test set. Test results never reach the agents.
+After research, Meta selects one existing model; the host freezes it and scores it **once** on the held-out Test set. Test results never reach the agents. `MAT_01` and `CHEM_01` are simulated experiments without a Test set; see section 5 for how they are scored.
 
 | Level | What may change | How to run |
 | --- | --- | --- |
@@ -130,7 +130,7 @@ Metrics are each task's native metrics in their native units and directions. `MA
 
 ## Rules
 
-- Research uses Train and Validation only. Labels come from a shared query budget: 10% of the training pool labeled at start, up to another 50% purchasable (exact counts per task in its `data_description.md`).
+- Research uses Train and Validation only. Labels come from a shared query budget: 10% of the training pool labeled at start, up to another 50% purchasable (exact counts per task in its `problem/` directory). `MAT_01` and `CHEM_01` have no label pool; they spend only the simulator's action allowance.
 - The 4-hour budget is one clock shared by all Task and Meta generations; at most 40 Task rounds. Failed model requests are retried and their time is returned to the clock (at most 1 hour per job).
 - Test runs once, after Meta's final selection and the freeze, and is never fed back.
 - No independent LLM judge is used; records show `judge.status=disabled`.
@@ -155,6 +155,51 @@ Keep task set, budget, initial agent and hardware identical when comparing model
 | `benchmarks/` | data access, output checks and scoring: `naturebench_active/`, `medrsee/`, `simulator/` |
 | `tasks/` | task instructions shown to the agents: `naturebench-active/`, `medrsee/`, `simulator/`, `resp/` |
 | `docs/task_48.md` | all 48 tasks with inputs, outputs and the L5 chains |
+
+## Current results
+
+<details>
+<summary><b>Expand: preliminary results of five models on the 48 tasks (2026-11-10)</b></summary>
+
+<br>
+
+These results come from our reference machine. Except for the L5 protein chain, every number is a single run. They show that the benchmark separates models and settings; they are not a final ranking. Click a figure for full resolution.
+
+**1. Overall win share**
+
+[![Win shares of five models at L3, L4, L5 and in five domains](docs/figures/results-overall.png)](docs/figures/results-overall.png)
+
+At each level, models are compared pairwise on every task's native metrics (win 1, tie 0.5, loss 0), then averaged with tasks weighted equally. The percentages are win shares, not task success rates. L3/L4 cover 5 models × 48 tasks; L5 covers 4 models × 7 tasks.
+
+**Takeaway:** Gemini-4-Argon leads clearly at every level and in every domain.
+
+**2. L3 versus L4, task by task**
+
+[![Per-task comparison of L4 against L3 for five models on 48 tasks](docs/figures/results-l3-l4.png)](docs/figures/results-l3-l4.png)
+
+Each cell compares one model's L4 and L3 results on one task (orange: L4 ahead, blue: L3 ahead, grey: balanced). Across 240 model–task pairs, L4 leads in 113, L3 in 110, and 17 are balanced.
+
+**Takeaway:** letting Meta modify itself (L4) gives no consistent gain; the effect depends on the model and the task.
+
+**3. Cross-task transfer: L5 versus L4**
+
+[![L4, L5 and their difference on the five transfer tasks of the two chains](docs/figures/results-transfer.png)](docs/figures/results-transfer.png)
+
+L5 is L4 plus the agents and experience distilled from earlier tasks in the chain. Only the five tasks that actually inherit experience are shown; Δ = L5 − L4, green for improvement, red for deterioration. Protein-chain results for Deepseek, Qwen and GLM are mean ± standard deviation over three runs; all others are single runs.
+
+**Takeaway:** transfer helps on some tasks and hurts on others; there is no general positive transfer yet.
+
+**4. Supplementary scientific checks**
+
+[![Primary metrics and supplementary checks for molecule generation, linker design and RNA structure](docs/figures/results-science.png)](docs/figures/results-science.png)
+
+Beyond the primary metrics, these checks cover synthetic difficulty (SCScore, RAscore), linker geometry and RNA structure; “—” marks an unavailable score. The linker Geom. column is the share of generated molecules that pass all PoseBusters bond-length, bond-angle, internal-clash and ring/double-bond flatness checks; molecules that cannot be checked stay in the denominator.
+
+**Takeaway:** the primary metrics check only chemical validity, and the extra checks catch problems they miss. For example, Deepseek-4.1-Flash reaches 91.76% linker validity at L3, yet all 2,226 checkable molecules fail the bond-length and bond-angle checks (Geom. = 0); at L4 this recovers to 58.15%.
+
+*Note: the existing `MAT_01` and `CHEM_01` results come from batches with different episode protocols; excluding these two tasks leaves the L3/L4 model ranking unchanged.*
+
+</details>
 
 ## License and acknowledgments
 
