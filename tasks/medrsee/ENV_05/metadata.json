@@ -1,0 +1,27 @@
+{
+  "task_id": "ENV_05",
+  "benchmark": "medrsee",
+  "name": "电池弛豫曲线容量估计",
+  "counts": {
+    "train_pool": 53823,
+    "D0": 5382,
+    "Q": 48441,
+    "annotation_budget": 26911,
+    "V": 0,
+    "T": 5110
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "ENV_05",
+      "metrics": [
+        {
+          "name": "group_equal_mae",
+          "is_primary": true,
+          "metric_direction": "lower_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

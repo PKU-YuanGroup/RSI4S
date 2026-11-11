@@ -1,0 +1,27 @@
+{
+  "task_id": "ENV_04",
+  "benchmark": "medrsee",
+  "name": "ECOPROPHET GPP 生产力估计",
+  "counts": {
+    "train_pool": 140002,
+    "D0": 14000,
+    "Q": 126002,
+    "annotation_budget": 70001,
+    "V": 0,
+    "T": 16025
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "ENV_04",
+      "metrics": [
+        {
+          "name": "group_equal_mae",
+          "is_primary": true,
+          "metric_direction": "lower_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

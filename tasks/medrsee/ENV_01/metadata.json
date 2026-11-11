@@ -1,0 +1,27 @@
+{
+  "task_id": "ENV_01",
+  "benchmark": "medrsee",
+  "name": "GLORIA 叶绿素浓度反演",
+  "counts": {
+    "train_pool": 4412,
+    "D0": 441,
+    "Q": 3971,
+    "annotation_budget": 2206,
+    "V": 0,
+    "T": 718
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "ENV_01",
+      "metrics": [
+        {
+          "name": "log10_chla_rmse",
+          "is_primary": true,
+          "metric_direction": "lower_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

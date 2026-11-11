@@ -1,0 +1,96 @@
+{
+  "name": "task_48",
+  "kind": "task_set",
+  "task_count": 48,
+  "task_manifest": "configs/tasks_48.txt",
+  "excluded_tasks": [
+    "s41592-023-02148-8"
+  ],
+  "exclusion_reason": "RNA family sequence generation is excluded from the standard task set because of its expensive native terminal scoring.",
+  "groups": [
+    {
+      "name": "naturebench_active",
+      "config": "configs/naturebench_active_4h.json",
+      "tasks": [
+        "CHEM_02",
+        "MAT_04",
+        "LIFE_10",
+        "CHEM_03",
+        "MAT_02",
+        "MAT_05",
+        "MAT_03",
+        "LIFE_02",
+        "LIFE_04",
+        "LIFE_06",
+        "LIFE_08",
+        "CHEM_07",
+        "LIFE_12",
+        "LIFE_13",
+        "LIFE_07",
+        "LIFE_09",
+        "CHEM_05",
+        "CHEM_09",
+        "CHEM_10",
+        "LIFE_14",
+        "LIFE_15",
+        "LIFE_16"
+      ]
+    },
+    {
+      "name": "naturebench_pending",
+      "config": "configs/naturebench_pending_4h.json",
+      "tasks": [
+        "LIFE_05",
+        "CHEM_06",
+        "LIFE_11",
+        "CHEM_08",
+        "CHEM_11",
+        "MED_09",
+        "CHEM_04"
+      ]
+    },
+    {
+      "name": "naturebench_plm_interact",
+      "config": "configs/naturebench_plm_interact_4h.json",
+      "tasks": [
+        "LIFE_03"
+      ]
+    },
+    {
+      "name": "medrsee",
+      "config": "configs/medrsee.json",
+      "tasks": [
+        "RS_02",
+        "RS_01",
+        "ENV_01",
+        "ENV_02",
+        "ENV_03",
+        "ENV_04",
+        "ENV_05",
+        "MED_04",
+        "MED_05",
+        "MED_01",
+        "MED_03",
+        "MED_07",
+        "MED_08",
+        "MED_06",
+        "MED_02"
+      ]
+    },
+    {
+      "name": "simulator",
+      "config": "configs/simulator.json",
+      "tasks": [
+        "MAT_01",
+        "CHEM_01"
+      ]
+    },
+    {
+      "name": "resp",
+      "config": "configs/resp.json",
+      "tasks": [
+        "LIFE_01"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "format": "naturebench-active-v1",
+  "task_id": "LIFE_10",
+  "seed": 42,
+  "train_pool": 764312,
+  "D0": 76431,
+  "Q": 687881,
+  "annotation_budget": 382156,
+  "official_validation": 0,
+  "T": 84930,
+  "counts": {
+    "D0": 76431,
+    "Q": 687881,
+    "T": 84930
+  },
+  "instances": {
+    "dlg4_abundance": {
+      "D0": 628,
+      "Q": 5650,
+      "T": 698
+    },
+    "dlg4_binding": {
+      "D0": 742,
+      "Q": 6683,
+      "T": 826
+    },
+    "gb1": {
+      "D0": 48247,
+      "Q": 434228,
+      "T": 53609
+    },
+    "gfp": {
+      "D0": 4654,
+      "Q": 41888,
+      "T": 5172
+    },
+    "grb2_abundance": {
+      "D0": 5703,
+      "Q": 51326,
+      "T": 6337
+    },
+    "grb2_binding": {
+      "D0": 3010,
+      "Q": 27086,
+      "T": 3345
+    },
+    "pab1": {
+      "D0": 3394,
+      "Q": 30545,
+      "T": 3771
+    },
+    "pten_abundance": {
+      "D0": 395,
+      "Q": 3553,
+      "T": 439
+    },
+    "pten_activity": {
+      "D0": 591,
+      "Q": 5316,
+      "T": 657
+    },
+    "tem_1": {
+      "D0": 1113,
+      "Q": 10023,
+      "T": 1238
+    },
+    "ube4b": {
+      "D0": 7954,
+      "Q": 71583,
+      "T": 8838
+    }
+  },
+  "selected_instances": [
+    "dlg4_abundance",
+    "dlg4_binding",
+    "gb1",
+    "gfp",
+    "grb2_abundance",
+    "grb2_binding",
+    "pab1",
+    "pten_abundance",
+    "pten_activity",
+    "tem_1",
+    "ube4b"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "b77fa1ce867ddbfefdc074cf3d2dc59212caf48c4d7995f5904e339611b7e51c",
+  "source_sha256": "0442c2e539ab9f69aaff5b34a566f9339b6aa5eb9dc701a057a595ae6ede5f18",
+  "reference_sha256": "68635a8750de1280fc56268416e948ca33b69f8f7e88dfc6f8fc972b771c4903",
+  "public_sha256": "6bc681091b0c7d5be4b4b7601d97fdd1abde5e8e72a69e614120610a30ac7a99",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "4c2c5120bb35211d7a23560087e6e5a3d46a8a07696aa30169f819a0cb7b2c0a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "evidence.py": "43d207f88977843f8565bd8ae3baf1c3db70a02b874dc9b0f6397cee4b01e967",
+    "prepare.py": "bb1a607c8f4b80aadda448e39af3dba58cdbb3388e751fab5e71271f737fb429",
+    "smoke.py": "03974290db605dfb03db7f733ef24a3270bf761bd8162c2b1b41b2d459c617bf",
+    "sources.py": "9a52b2e252462e837b2bb2dd219df1d5dc58f38f621fea18911b64764fee225e",
+    "verify.py": "28152f4bbf0724121b33c7b029083e5ebb3553c9e09c55e103493cc9f4f276dd"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one native record, including its defined target vector; not a whole group",
+    "validation": "official V preserved; otherwise Agent selects only already acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner"
+}

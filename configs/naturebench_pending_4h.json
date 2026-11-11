@@ -1,0 +1,55 @@
+{
+  "api_max_retries": 3,
+  "api_request_timeout_seconds": 600,
+  "budget": {
+    "api_calls": null,
+    "api_tokens": null,
+    "solve_seconds": 14400,
+    "wall_seconds": 14400
+  },
+  "cpu_cores_per_slot": 4,
+  "credentials": "/path/to/credentials.json",
+  "data_root": "/path/to/rsi4s-bound/packages",
+  "evaluation_phases": {
+    "policy": "shared_deadline_v1"
+  },
+  "experiment_scope": "Seven NatureBench tasks with pending-environment dependencies; shared 10% initial / 50% additional evidence budget and 14400-second research budget; official or explicitly prescribed Val, terminal-only native Test.",
+  "final_inference_seconds": null,
+  "freeze_manifest": "provenance/releases/naturebench_pending_4h.json",
+  "gpu_slots_per_gpu": 2,
+  "gpu_wait_seconds": 600,
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "internal_validation": {
+    "policy": "agent_selected_v1"
+  },
+  "max_gpu_queue_seconds": 3600,
+  "max_output_tokens": "model_max",
+  "meta_calls": null,
+  "meta_selection_seconds": null,
+  "mode": "fixed",
+  "model": "deepseek-flash",
+  "naturebench_active": true,
+  "naturebench_source_root": "/path/to/rsi4s-bound/sources",
+  "python": "/path/to/envs/naturebench-pending/bin/python",
+  "reuse_artifacts": true,
+  "rounds": 40,
+  "task_calls": null,
+  "tasks": [
+    "LIFE_05",
+    "CHEM_06",
+    "LIFE_11",
+    "CHEM_08",
+    "CHEM_11",
+    "MED_09",
+    "CHEM_04"
+  ]
+}

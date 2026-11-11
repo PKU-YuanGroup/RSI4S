@@ -1,0 +1,27 @@
+{
+  "task_id": "MED_01",
+  "benchmark": "medrsee",
+  "name": "ACDC 心脏 MRI 分割",
+  "counts": {
+    "train_pool": 100,
+    "D0": 10,
+    "Q": 90,
+    "annotation_budget": 50,
+    "V": 0,
+    "T": 50
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_01",
+      "metrics": [
+        {
+          "name": "three_structure_dice",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "budget": {
+    "api_calls": null,
+    "api_tokens": null,
+    "solve_seconds": 14400,
+    "wall_seconds": 14400
+  },
+  "cpu_cores_per_slot": 4,
+  "credentials": "/path/to/credentials.json",
+  "data_root": "/path/to/rsi4s-bound",
+  "freeze_manifest": "provenance/releases/simulator.json",
+  "gpu_slots_per_gpu": 2,
+  "gpu_wait_seconds": 600,
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "max_output_tokens": "model_max",
+  "meta_calls": null,
+  "mode": "fixed",
+  "model": "deepseek-flash",
+  "python": "/path/to/envs/medrsee/bin/python",
+  "rounds": 40,
+  "sandbox_resources": {
+    "threads": 4
+  },
+  "simulator_environments": {
+    "MAT_01": {
+      "data_root": "/path/to/rsi4s_task48/simulators/MAT_01",
+      "python": "/path/to/envs/simulator-mat01/bin/python"
+    },
+    "CHEM_01": {
+      "data_root": "/path/to/rsi4s_task48/simulators/CHEM_01",
+      "python": "/path/to/envs/simulator-chem01/bin/python"
+    }
+  },
+  "task_calls": null,
+  "tasks": [
+    "MAT_01",
+    "CHEM_01"
+  ]
+}

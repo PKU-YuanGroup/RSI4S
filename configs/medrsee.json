@@ -1,0 +1,55 @@
+{
+  "budget": {
+    "api_calls": null,
+    "api_tokens": null,
+    "solve_seconds": 14400,
+    "wall_seconds": 14400
+  },
+  "cpu_cores_per_slot": 4,
+  "credentials": "/path/to/credentials.json",
+  "data_root": "/path/to/rsi4s-bound",
+  "freeze_manifest": "provenance/releases/medrsee.json",
+  "gpu_slots_per_gpu": 2,
+  "gpu_wait_seconds": 600,
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "max_output_tokens": "model_max",
+  "medrsee_data_root": "/path/to/rsi4s_task48/medrsee-v4",
+  "medrsee_final_seconds": 3600,
+  "medrsee_test_cache_root": "/path/to/rsi4s-bound/state/medrsee-test-input-cache",
+  "meta_calls": null,
+  "meta_selection_seconds": null,
+  "mode": "fixed",
+  "model": "deepseek-flash",
+  "python": "/path/to/envs/medrsee/bin/python",
+  "rounds": 40,
+  "sandbox_resources": {
+    "threads": 4
+  },
+  "task_calls": null,
+  "tasks": [
+    "RS_02",
+    "RS_01",
+    "ENV_01",
+    "ENV_02",
+    "ENV_03",
+    "ENV_04",
+    "ENV_05",
+    "MED_04",
+    "MED_05",
+    "MED_01",
+    "MED_03",
+    "MED_07",
+    "MED_08",
+    "MED_06",
+    "MED_02"
+  ]
+}

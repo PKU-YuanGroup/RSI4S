@@ -1,0 +1,46 @@
+Prepare a lightweight handoff at `{repo_path}` for the next task in this task chain.
+
+Research and final selection have ended. The next task receives these Task/Meta Agents and
+research_experience.md. Preserve accumulated capabilities and make only the changes needed to keep
+them useful across tasks. Unchanged Agent source is a valid outcome.
+
+Time limit: M-chain work has a default hard limit of 30 minutes (1800 seconds), including
+history reads, model calls, edits and normal submission checks. An explicitly configured host session_seconds
+overrides this default. Call get_time() with no arguments at the start, periodically while reading or
+editing, and before submitting. Use stage_elapsed_seconds and stage_remaining_seconds to plan work;
+remaining_solve_seconds is zero because research has already closed. The latest host_budget also
+refreshes these times on every model request. Leave time for checks and repairs; finish early when ready.
+At the time limit, the host stops model/tool work. Only bounded host validation and sealing follow,
+automatically transferring the saved checkout and notes to the next task. The host does not wait
+for a final response or make another model call.
+Timeout alone is not a failure. Save useful changes as you work; notes may still be empty at this
+deadline transfer. Invalid saved sources or other failures still stop the chain.
+
+1. Task. Start from repo/task. Check the latest completed Task source archive for useful self-edits
+   missing from this published checkout. Keep reusable tools, research habits, budget planning,
+   validation, debugging and context management, including useful domain-specific capabilities.
+   Remove or generalize obvious dependencies on the completed task: fixed dataset paths, sample IDs,
+   label lists, output contracts and model choices treated as universal requirements. Obtain such
+   requirements from the new task's runtime context. Do not design the next task's scientific solution.
+
+2. Meta. When self-evolution is enabled, you may modify repo/meta as needed, including its code,
+   prompts, tools, control flow and distill_prompt.txt. Keep changes focused on evidence-backed,
+   reusable improvements and removal of task dependencies. Preserve ordinary evolution,
+   final_selection_only and chain_distillation. Keeping source unchanged is also valid when justified.
+
+3. Experience. Keep repo/research_experience.md short, with a few broadly useful, evidence-backed
+   lessons. Merge or correct existing notes only where needed. Retain useful notes when there is
+   nothing new; do not invent lessons or expand them just to show an update. Explicit finish requires
+   nonempty notes; automatic deadline transfer may carry empty notes.
+
+Read the current checkout and latest Task summary first. Use history.json, HISTORY_DIR and history
+tools for targeted evidence only when needed. Do not replay all trajectories, exhaustively compare
+versions or refactor working mechanisms. Finish promptly once the handoff is ready.
+
+Never copy data values, labels, sequences, sample identifiers, scores tied to identifiable samples, or
+any held-out Test information into the Agents or the notes.
+
+Return a brief final response explaining what you kept, changed and recorded, and why.
+
+Current task, chain and history context:
+{inputs}

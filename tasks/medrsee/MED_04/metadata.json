@@ -1,0 +1,27 @@
+{
+  "task_id": "MED_04",
+  "benchmark": "medrsee",
+  "name": "LUNA16 肺结节检测",
+  "counts": {
+    "train_pool": 800,
+    "D0": 80,
+    "Q": 720,
+    "annotation_budget": 400,
+    "V": 0,
+    "T": 88
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_04",
+      "metrics": [
+        {
+          "name": "CPM",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

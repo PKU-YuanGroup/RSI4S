@@ -1,0 +1,179 @@
+{
+  "format": "naturebench-active-v2",
+  "task_id": "LIFE_13",
+  "seed": 42,
+  "train_pool": 17723,
+  "D0": 1772,
+  "Q": 15951,
+  "annotation_budget": 8861,
+  "official_validation": 2057,
+  "T": 5007,
+  "counts": {
+    "D0": 1772,
+    "Q": 15951,
+    "T": 5007,
+    "V": 2057
+  },
+  "instances": {
+    "cath_4_2": {
+      "D0": 251,
+      "Q": 2265,
+      "T": 1120,
+      "V": 557
+    },
+    "cath_4_3": {
+      "D0": 1521,
+      "Q": 13686,
+      "T": 1864,
+      "V": 1500
+    },
+    "pdb2022": {
+      "T": 1973
+    },
+    "ts50": {
+      "T": 50
+    }
+  },
+  "selected_instances": [
+    "cath_4_2",
+    "cath_4_3",
+    "pdb2022",
+    "ts50"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "253f976c41906ebf3f4d9aa6cdcdacb43051bbb8b1f1da94b07ae3249ba3da30",
+  "source_sha256": "22977c16221f1f14bd90f7c4658ace974db3cf16be7e5bbfa3bd3d771a3e94c8",
+  "reference_sha256": "dae32ead3ae35a8aea1f65f92cb4aea7d6ce9c0f5362ecea37bef84c0c9e8524",
+  "public_sha256": "ce28684c58e622e440746dbe40878d051cc67897040f98647fcca451c86c817b",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "c42c76ff838a6591b2ed5932099cdbbc8ee240f4c76e24ed449f21edecfcc67a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_labels.py": "87a68df5f4419fe2bec140a4c1f443c2e656e1f333f1ff99a61a3db3219c476b",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "curation.py": "3c025878cbceac8c6fb6d80cfdebdbae5f8af5e41825514a28a8661fb3739df8",
+    "documents.py": "a9792caa9acc7adf06ca047b94979cc24234bc9dd58749a82b29e18915d9850d",
+    "evidence.py": "3f38f4fffc9d2dcb31e227315b44e08f2618fe88e62026eeea40de0bd907f5d6",
+    "extended.py": "f560eac76b6002fb0aa71040c8679e57c07b1d1af296854afdc179d550653251",
+    "extended_notes.py": "d73ee316343bc0f9666ac916ffc5619711bb21525437e54c2b0b02587ae79ee6",
+    "large_inputs.py": "095d3e18eaf3f2a8f7fb75e06ac4152b793b6f255220c4cb0519fed0909b0b65",
+    "prepare.py": "4bbd726451257d7adcb1af6fece4b6667cd02f27eff2d9f098a461f77a8d984d",
+    "smoke.py": "5e88dc438fc2bcd4015d2a5a6f479161c478e90430bbdbf4b14fe2fff916b39c",
+    "sources.py": "35b342727145ad6242faa2b21a38699fed0fa654eafb4da1a111565d5e95b3ba",
+    "verify.py": "7ad671bc754db74302367459f14de877854ee6e1493a46156e19d7693f2af6ba",
+    "verify_curation.py": "aa2c93b9ddaa9c884807427c25c09442a0f4dcbddfd8610a586fd221350f8dca",
+    "verify_extended.py": "78426948be663e8d2c19c2cbfd054a0fca747910134474abb3c6ce8b8cb885a4"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained native record, including its defined target vector; duplicate train rows do not add units",
+    "validation": "native V retained except documented Test overlaps and unresolved within-V target conflicts; otherwise Agent selects acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "budget_denominator": "retained training pool N, fixed before D0 sampling; excluded and duplicate rows add no quota",
+    "pool_curation": "host input-identity checks and exact development-target consistency; no Test labels",
+    "repeated_split": null
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "curation": {
+    "policy": "holdout-first-exact-dedup-ambiguous-quarantine-v1",
+    "instances": {
+      "cath_4_2": {
+        "native": {
+          "T": 1120,
+          "V": 608,
+          "train": 18024
+        },
+        "retained": {
+          "T": 1120,
+          "V": 557,
+          "train": 2516
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 12,
+            "duplicate_training_record": 12806,
+            "overlaps_test_group": 1428,
+            "overlaps_validation_group": 1262
+          },
+          "V": {
+            "ambiguous_development_targets": 1,
+            "overlaps_test_group": 50
+          }
+        },
+        "duplicate_groups": 417,
+        "conflicting_development_groups": 2
+      },
+      "cath_4_3": {
+        "native": {
+          "T": 1864,
+          "V": 1516,
+          "train": 16631
+        },
+        "retained": {
+          "T": 1864,
+          "V": 1500,
+          "train": 15207
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 12,
+            "duplicate_training_record": 185,
+            "overlaps_test_group": 806,
+            "overlaps_validation_group": 421
+          },
+          "V": {
+            "ambiguous_development_targets": 1,
+            "overlaps_test_group": 15
+          }
+        },
+        "duplicate_groups": 12898,
+        "conflicting_development_groups": 11
+      },
+      "pdb2022": {
+        "native": {
+          "T": 1973
+        },
+        "retained": {
+          "T": 1973
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "ts50": {
+        "native": {
+          "T": 50
+        },
+        "retained": {
+          "T": 50
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 3,
+        "conflicting_development_groups": 0
+      }
+    },
+    "test_labels_read": false,
+    "test_members_and_order_preserved": true,
+    "target_aggregation": false,
+    "unresolved_groups": "quarantined; no claim of independent measurements"
+  },
+  "curation_sha256": "c657bef1ca8878b677d7d2fa34989dc426687c52f46f87dc9ee9809752e14f31",
+  "native_train_pool": 34655,
+  "native_validation": 2124,
+  "internal_validation_instances": [],
+  "preparation_batch": "20261011-second-batch"
+}

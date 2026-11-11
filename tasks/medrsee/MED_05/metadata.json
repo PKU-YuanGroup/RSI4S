@@ -1,0 +1,27 @@
+{
+  "task_id": "MED_05",
+  "benchmark": "medrsee",
+  "name": "CoNIC 细胞核实例分割与分类",
+  "counts": {
+    "train_pool": 4537,
+    "D0": 453,
+    "Q": 4084,
+    "annotation_budget": 2268,
+    "V": 0,
+    "T": 444
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_05",
+      "metrics": [
+        {
+          "name": "mPQ+",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

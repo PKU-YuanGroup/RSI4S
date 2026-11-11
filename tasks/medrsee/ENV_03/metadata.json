@@ -1,0 +1,27 @@
+{
+  "task_id": "ENV_03",
+  "benchmark": "medrsee",
+  "name": "GEFCom2014-W 风电概率预测",
+  "counts": {
+    "train_pool": 7000,
+    "D0": 700,
+    "Q": 6300,
+    "annotation_budget": 3500,
+    "V": 0,
+    "T": 310
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "ENV_03",
+      "metrics": [
+        {
+          "name": "mean_pinball_loss",
+          "is_primary": true,
+          "metric_direction": "lower_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

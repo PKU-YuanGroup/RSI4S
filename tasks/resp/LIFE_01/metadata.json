@@ -1,0 +1,24 @@
+{
+  "task_id": "LIFE_01",
+  "title": "LIFE_01: Atezolizumab binding-bin prediction",
+  "benchmark_origin": "RSI4S task",
+  "scope": "Atezolizumab/PD-L1 three-bin prediction only",
+  "performance_entries": [
+    {
+      "dataset_name": "atezolizumab",
+      "metrics": [
+        {
+          "name": "MCC",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1.0
+        },
+        {
+          "name": "ROC_AUC_RH03",
+          "is_primary": false,
+          "metric_direction": "higher_is_better"
+        }
+      ]
+    }
+  ]
+}

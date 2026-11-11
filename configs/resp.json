@@ -1,0 +1,41 @@
+{
+  "api_max_retries": 3,
+  "api_request_timeout_seconds": 600,
+  "budget": {
+    "api_calls": null,
+    "api_tokens": null,
+    "solve_seconds": 14400,
+    "wall_seconds": 14400
+  },
+  "cpu_cores_per_slot": 4,
+  "credentials": "/path/to/credentials.json",
+  "data_root": "/path/to/rsi4s-bound/packages",
+  "experiment_scope": "LIFE_01 Atezolizumab binding-bin prediction: shared four-hour active-label research, acquired-group validation, explicit final Meta selection and frozen Test inference. Terminal Test scoring is a separate organizer-only command.",
+  "freeze_manifest": "provenance/releases/resp.json",
+  "gpu_slots_per_gpu": 2,
+  "gpu_wait_seconds": 600,
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "max_output_tokens": "model_max",
+  "meta_calls": null,
+  "meta_selection_seconds": null,
+  "mode": "coevolve",
+  "model": "deepseek-flash",
+  "naturebench_active": true,
+  "naturebench_source_root": "/path/to/rsi4s-bound/sources",
+  "python": "/path/to/envs/science/bin/python",
+  "reuse_artifacts": true,
+  "rounds": 40,
+  "task_calls": null,
+  "tasks": [
+    "LIFE_01"
+  ]
+}

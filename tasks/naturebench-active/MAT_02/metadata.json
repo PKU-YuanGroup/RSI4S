@@ -1,0 +1,73 @@
+{
+  "format": "naturebench-active-v1",
+  "task_id": "MAT_02",
+  "seed": 42,
+  "train_pool": 47330,
+  "D0": 4733,
+  "Q": 42597,
+  "annotation_budget": 23665,
+  "official_validation": 5922,
+  "T": 5934,
+  "counts": {
+    "D0": 4733,
+    "Q": 42597,
+    "T": 5934,
+    "V": 5922
+  },
+  "instances": {
+    "band_gap": {
+      "D0": 1630,
+      "Q": 14668,
+      "T": 2037,
+      "V": 2038
+    },
+    "h2_diffusivity": {
+      "D0": 1548,
+      "Q": 13935,
+      "T": 1944,
+      "V": 1940
+    },
+    "h2_uptake": {
+      "D0": 1555,
+      "Q": 13994,
+      "T": 1953,
+      "V": 1944
+    }
+  },
+  "selected_instances": [
+    "band_gap",
+    "h2_diffusivity",
+    "h2_uptake"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "4763769ac2264b00ffd03e5ee05bfdb5241154c13d40e77fb471b96ed3f524ae",
+  "source_sha256": "a15ef715400c2e290f9276956c5d47528afc8006a12852a40c65db5826dd09be",
+  "reference_sha256": "a1fd7fcf96f44789956e77dc273430be522e3935d15793c6b1a0310cfb9974cd",
+  "public_sha256": "92786724995489e239a9c2059baac6cc1b48ee0deaeaee762d37a8bcf4c173b2",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "4c2c5120bb35211d7a23560087e6e5a3d46a8a07696aa30169f819a0cb7b2c0a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "evidence.py": "43d207f88977843f8565bd8ae3baf1c3db70a02b874dc9b0f6397cee4b01e967",
+    "prepare.py": "bb1a607c8f4b80aadda448e39af3dba58cdbb3388e751fab5e71271f737fb429",
+    "smoke.py": "03974290db605dfb03db7f733ef24a3270bf761bd8162c2b1b41b2d459c617bf",
+    "sources.py": "9a52b2e252462e837b2bb2dd219df1d5dc58f38f621fea18911b64764fee225e",
+    "verify.py": "28152f4bbf0724121b33c7b029083e5ebb3553c9e09c55e103493cc9f4f276dd"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one native record, including its defined target vector; not a whole group",
+    "validation": "official V preserved; otherwise Agent selects only already acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner"
+}

@@ -1,0 +1,22 @@
+{
+  "candidate_id": "CHEM_01",
+  "contract_type": "native_interactive",
+  "input": "Native Gymnasium WaterOilExtract-v0 observations; actual full initial physical state and RNG state frozen organizer-side",
+  "output": "Discrete actions0..40 until native termination or50steps",
+  "scoring": {
+    "entry": "episode.py:Episode",
+    "metric": "Sum of unchanged native rewards: terminal change in recoverable NaCl moles minus retained C6H14 moles over working vessels, plus native operation penalties",
+    "higher_better": true,
+    "working_vessels": "Extraction vessel and collection beaker; waste is excluded from the terminal sum",
+    "operation_penalties": "Native vessel-operation feedback code -1 incurs -0.1 each; no universal per-step penalty",
+    "baseline": "Immediate termination returns 0; this does not prove global optimality"
+  },
+  "access": "Only observations/action schema are actor-visible. Organizer owns simulator state and step loop. Adapter is not an OS sandbox.",
+  "limitations": [
+    "One fixed native water/oil extraction episode; not the full reaction/distillation environment family",
+    "Explicit20260921initial state, not multiple independent seeds",
+    "Numba JIT disabled for portable deterministic data preparation; numeric source algorithms unchanged",
+    "Actual initial vessel/material/RNG state and dynamics fixture retained, not merely a seed",
+    "No agent training, action optimization, hardware experiment or paid API call"
+  ]
+}

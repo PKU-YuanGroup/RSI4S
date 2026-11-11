@@ -1,0 +1,27 @@
+{
+  "task_id": "RS_02",
+  "benchmark": "medrsee",
+  "name": "MADOS 海洋漂浮物与污染识别",
+  "counts": {
+    "train_pool": 1433,
+    "D0": 143,
+    "Q": 1290,
+    "annotation_budget": 716,
+    "V": 642,
+    "T": 728
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "RS_02",
+      "metrics": [
+        {
+          "name": "macro_f1",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

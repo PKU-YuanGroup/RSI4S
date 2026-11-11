@@ -1,0 +1,311 @@
+{
+  "format": "naturebench-active-v2",
+  "task_id": "LIFE_03",
+  "seed": 42,
+  "train_pool": 781886,
+  "D0": 78188,
+  "Q": 703698,
+  "annotation_budget": 390943,
+  "official_validation": 112645,
+  "T": 344132,
+  "counts": {
+    "D0": 78188,
+    "Q": 703698,
+    "T": 344132,
+    "V": 112645
+  },
+  "instances": {
+    "bernett": {
+      "D0": 16218,
+      "Q": 145963,
+      "T": 52048,
+      "V": 59246
+    },
+    "cross_species_mouse": {
+      "D0": 41767,
+      "Q": 375901,
+      "T": 55000,
+      "V": 52558
+    },
+    "mutation_effect": {
+      "D0": 510,
+      "Q": 4593,
+      "T": 841,
+      "V": 841
+    },
+    "virus_human": {
+      "D0": 19693,
+      "Q": 177241,
+      "T": 49243
+    },
+    "cross_species_ecoli": {
+      "T": 22000
+    },
+    "cross_species_fly": {
+      "T": 55000
+    },
+    "cross_species_worm": {
+      "T": 55000
+    },
+    "cross_species_yeast": {
+      "T": 55000
+    }
+  },
+  "selected_instances": [
+    "bernett",
+    "cross_species_ecoli",
+    "cross_species_fly",
+    "cross_species_mouse",
+    "cross_species_worm",
+    "cross_species_yeast",
+    "mutation_effect",
+    "virus_human"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "f865669ce3bf756433a2bb8442a448458f6f30452fea4cf8f52ffbcb3d2c9e2a",
+  "source_sha256": "6e86288f9646a44ac625ca495fc39b0a28e149ce8108df032782d379fabf67d0",
+  "reference_sha256": "e68033b0c14a7b94a333ebd7bdcbd0da8fd7b4eae9dd95ca0a1adb4f819be155",
+  "public_sha256": "64cbf2d0adc75a0d4ff364b0db9231025bed3ee6e8a953ee18a0f4b6fd393f9b",
+  "code_sha256": {
+    "benchmarks/naturebench_active/__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "benchmarks/naturebench_active/adapters/__init__.py": "2cfaddb5ba82c87853a329402e7c53ba33bcbcfac2989ed81b0ea1a17ffb5fd3",
+    "benchmarks/naturebench_active/adapters/attachments.py": "6293e9e1fddcb08098af328837a832af597b55a5789ede5e77f24585073efea5",
+    "benchmarks/naturebench_active/adapters/graph.py": "b6add21b9805573438b47230c3283afe5988fe5f6da2f17bab23dedeada33a5f",
+    "benchmarks/naturebench_active/adapters/nanoparticle.py": "c18eb0412cfaf2c59d51cde76165729537a59597b9c2f908e1c23e56baacd172",
+    "benchmarks/naturebench_active/adapters/noncoding.py": "8f208a56b7eb22174f056cf72fe32bbf97c17c92fca9ec32c645402c6f7f459a",
+    "benchmarks/naturebench_active/adapters/pdb.py": "cc9cea66cead6462690ec728f22d105c3ca0a5babac1c5ce831a679d022fa3db",
+    "benchmarks/naturebench_active/adapters/pending.py": "c40ea30f53d946c27d745cd797738ad6a063abf7b5b7ad8661dfcaf3b46d67a2",
+    "benchmarks/naturebench_active/adapters/plm_interact.py": "f704b825cee9ac233f327a3cd5b120f38c3674dd2676a71f35ea85248b355bd6",
+    "benchmarks/naturebench_active/adapters/resp.py": "4c369a06c3afb8387fa0e26cb52601c7d8855288650c37e5b16a958181d8ef65",
+    "benchmarks/naturebench_active/common.py": "4330eac95d3988c8f8517d62ad65dee42055c69bb6c53c6f00340101fe8f7fcd",
+    "benchmarks/naturebench_active/evidence.py": "fe903cac4040c3eb1dae64122a48356e1e441fde3f2793063d86c84cac4aac20",
+    "benchmarks/naturebench_active/execution.py": "f57656a84f7e40e896216f6d9700f5d1486077641029dbfcaf72a17c9983500c",
+    "benchmarks/naturebench_active/generation.py": "f1d522b15b839ee971c1063511d71c0387a8379e57d0190273055b4da2131a17",
+    "benchmarks/naturebench_active/inference.py": "f6e26455be7f6771effd53c5490bb52b39f5980c314a8dfc110ea9c71f1e7e9e",
+    "benchmarks/naturebench_active/inputs.py": "f58bee935a27f77ba6377745a70aab5664e3a1d0f5c6d3673fd381e0f6bfbe72",
+    "benchmarks/naturebench_active/outputs.py": "3da28b81b58821c1bc1392f2ff81799c3324ad912758ab3357abb1fb8e772e42",
+    "benchmarks/naturebench_active/preflight.py": "fda305baf4ffd991db487876598c9641614f9ef81c0d91255225a4de4e86f1a3",
+    "benchmarks/naturebench_active/release.py": "63dd4f88d230fd365b5c4666fa8ba6b1fc2cc66d3aec6d0d1d2e84d63a84e8ed",
+    "benchmarks/naturebench_active/runtime.py": "4c5bdd7a0f7e67f411746fc3db4431746bb17baa421e4f7aa0fd76ba6d86ed2c",
+    "benchmarks/naturebench_active/scoring/__init__.py": "9e0946093f32b336457760ad00d046a19650e487c016a8215db940016cb160c7",
+    "benchmarks/naturebench_active/scoring/capacity.py": "b13e83403787d2d243ba44f87df17e528e962a8cd7af59979c943dc496dcdc59",
+    "benchmarks/naturebench_active/scoring/cryo.py": "4a2d5125a7ce9ceddeb9fb1bfb8300e1fa1bdb0723c68bc8356f0d49d80eb6ac",
+    "benchmarks/naturebench_active/scoring/linker.py": "de3a25f603aa4a20a95df302b67e59fbf3fcfd873f90d4f22a54d8e366a4dc3f",
+    "benchmarks/naturebench_active/scoring/metrics.py": "4fa4c0f074353ab1f021dfd78d6f0ea4723532660351aadd0e53cdbccbc84161",
+    "benchmarks/naturebench_active/scoring/native_runner.py": "5f898c78912c825b2f5f935a60ec939af1923c2c3bb87a1284f9120b2ae55261",
+    "benchmarks/naturebench_active/scoring/optimization.py": "378758f76caf210186c3e2dd87877834b73a3fa2037c15db65e0307a2e1de7b9",
+    "benchmarks/naturebench_active/scoring/pending.py": "1f56dffc84aad54eb5f9dc855a495bd12251d3bef9c1898afbc2089f592eb443",
+    "benchmarks/naturebench_active/scoring/pocket_terminal.py": "ee525f7772bc0cf73abf5c571120f4b3f7b0dfa6737d2bdc7bae176f7af90733",
+    "benchmarks/naturebench_active/scoring/process.py": "59f2ed366d5277fb7db3e2ad382876427417f2031a10e37f13bf068ee4b8f65d",
+    "benchmarks/naturebench_active/scoring/resources.py": "0c70a57e9cd6453ddb31730f287eeff7eac5351a96317761c159763743f746c1",
+    "benchmarks/naturebench_active/scoring/rna_terminal.py": "2a626e81036d4af1ead826957a4491fc2f8daac4d2c408aaeda3637db40091f8",
+    "benchmarks/naturebench_active/scoring/scientific.py": "4f78cb0c713ed54950c5ccb1558ce1c396a5bcfdfe55d306ac02b9dafb27af6e",
+    "benchmarks/naturebench_active/scoring/structure.py": "81b321270794868044d41507e36b2210ac20e02eb966491dc94a9a5d27bb6abb",
+    "benchmarks/naturebench_active/scoring/terminal.py": "1598f39bcd002372114aaa2a955eaa0d269ef7ae1e3c32b89d33b478eb48be2a",
+    "benchmarks/naturebench_active/scoring/terminal_noncoding.py": "e26d9a27a99a2a6a2a8f06039c6e432be430c10035e38ccb9eb60544e03d16b8",
+    "benchmarks/naturebench_active/scoring/terminal_resp.py": "4fe575b3dedb0dff3c2840e18042c787d642e60204ab547d8b690e20dcff95d1",
+    "benchmarks/naturebench_active/submission.py": "6155bad669ee38cd67defcf1a7377292b13301591b91961aad89f362c0cdff63",
+    "benchmarks/naturebench_active/timing.py": "8eae9f4e98fc7d41ec0955214dba4f58c06c0f03b65f31d4d26e3831c2620a34",
+    "benchmarks/naturebench_active/validation_design.py": "915c78d2cc5d18caa7fd4e24e5eb1d7dd0429ed569df20a63ab877b3acbb9079",
+    "maintenance/naturebench/preparation/__init__.py": "735820d6c6abe054a97919019899ba1c68d1b60a7ca5b3a49ba95d743236ef10",
+    "maintenance/naturebench/preparation/assets.py": "67a6eac4908b84e12222e8e496e7b61ab463bb49d9745b0d6c0d437511b40624",
+    "maintenance/naturebench/preparation/build.py": "a5bcf2648b335123ec2eb9a301adedf94aa2bbc97fcc021a3b65152585e6547c",
+    "maintenance/naturebench/preparation/catalog.py": "324a14eb0fb44ac4a77d1a034144bec6e66c865f34a7196a1202b4dc1bbd2416",
+    "maintenance/naturebench/preparation/curation.py": "fcd8700564d678c4a634e2a4acef7a99f63707fa9f6a340f906f21443ad10b02",
+    "maintenance/naturebench/preparation/documents.py": "35ce877dcc3ab0c72cea67d1e18df4d35d5d1422c1922f71e41e389d976987f6",
+    "maintenance/naturebench/preparation/noncoding.py": "1490b29777004b5187e30f0bec2b173c08d9e565337a9661ecbb86c7b59d3c2b",
+    "maintenance/naturebench/preparation/notes.py": "632da8df478e1545a315a46c3d23cb6fe3fecbb9412b695760f88959b8f804ed",
+    "maintenance/naturebench/preparation/pending.py": "c46b49fe75e9bde80e54aaade729b302d684abed7ba5c7fa67a6d8cd274007e8",
+    "maintenance/naturebench/preparation/pending_generation.py": "15eb8f96f91cae7c3003d2d0d92591aac9f049b3b0aeb6e6e115d76b71b5649a",
+    "maintenance/naturebench/preparation/pending_protocol.py": "0bafa4747556f22992e177cccf13d9061954d9a3f3dac5b164ddeaa3f4e57fab",
+    "maintenance/naturebench/preparation/plm_interact.py": "725657a193d00d705a02c81b6da57017c6f5271986431e099a07f406c7cd8bd9",
+    "maintenance/naturebench/preparation/records.py": "3e27565b4a23836496bbbb0a0d752a3ef42373a56e030a10376ad46e6f4b947f",
+    "maintenance/naturebench/preparation/structured.py": "60441f31896b9d6f426fd20f15a1194fd6baec4d13672135906fac6c0f20a033",
+    "maintenance/naturebench/preparation/tabular.py": "5121edc79e9c797fa1656c09182e09df9d48a3a84d1649db744bd52b6a5c6ddd"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained native record, including its defined target vector; duplicate train rows do not add units",
+    "validation": "native V retained except documented Test overlaps and unresolved within-V target conflicts; otherwise Agent selects acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "budget_denominator": "retained training pool N, fixed before D0 sampling; excluded and duplicate rows add no quota",
+    "pool_curation": "host input-identity checks and exact development-target consistency; no Test labels",
+    "grouping": "global unordered exact sequence pairs for PPI; ordered full sequence triplets for mutation effects; no claim of homology independence",
+    "shared_training": "five byte-identical human train/Val copies stored once under cross_species_mouse; Bernett full training file only",
+    "test_labels": "never read during preparation, research, or frozen inference; independent terminal native scoring only",
+    "validation_scope": "one shared human validation cohort, Bernett official Val, mutation official Val; virus_human uses Agent-selected acquired labels"
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "curation": {
+    "policy": "holdout-first-exact-dedup-ambiguous-quarantine-v1",
+    "instances": {
+      "bernett": {
+        "native": {
+          "T": 52048,
+          "V": 59260,
+          "train": 163192
+        },
+        "retained": {
+          "T": 52048,
+          "V": 59246,
+          "train": 162181
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 95,
+            "duplicate_training_record": 692,
+            "overlaps_test_group": 8,
+            "overlaps_validation_group": 216
+          },
+          "V": {
+            "ambiguous_development_targets": 4,
+            "overlaps_test_group": 10
+          }
+        },
+        "duplicate_groups": 1154,
+        "conflicting_development_groups": 61
+      },
+      "cross_species_ecoli": {
+        "native": {
+          "T": 22000
+        },
+        "retained": {
+          "T": 22000
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 3284,
+        "conflicting_development_groups": 0
+      },
+      "cross_species_fly": {
+        "native": {
+          "T": 55000
+        },
+        "retained": {
+          "T": 55000
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 76,
+        "conflicting_development_groups": 0
+      },
+      "cross_species_mouse": {
+        "native": {
+          "T": 55000,
+          "V": 52725,
+          "train": 421792
+        },
+        "retained": {
+          "T": 55000,
+          "V": 52558,
+          "train": 417668
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 181,
+            "duplicate_training_record": 1448,
+            "overlaps_test_group": 1237,
+            "overlaps_validation_group": 1258
+          },
+          "V": {
+            "ambiguous_development_targets": 4,
+            "overlaps_test_group": 163
+          }
+        },
+        "duplicate_groups": 1310,
+        "conflicting_development_groups": 80
+      },
+      "cross_species_worm": {
+        "native": {
+          "T": 55000
+        },
+        "retained": {
+          "T": 55000
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 39,
+        "conflicting_development_groups": 0
+      },
+      "cross_species_yeast": {
+        "native": {
+          "T": 55000
+        },
+        "retained": {
+          "T": 55000
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 55,
+        "conflicting_development_groups": 0
+      },
+      "mutation_effect": {
+        "native": {
+          "T": 841,
+          "V": 841,
+          "train": 5103
+        },
+        "retained": {
+          "T": 841,
+          "V": 841,
+          "train": 5103
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "virus_human": {
+        "native": {
+          "T": 49243,
+          "train": 196957
+        },
+        "retained": {
+          "T": 49243,
+          "train": 196934
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 23
+          },
+          "V": {}
+        },
+        "duplicate_groups": 24,
+        "conflicting_development_groups": 0
+      }
+    },
+    "test_labels_read": false,
+    "test_members_and_order_preserved": true,
+    "target_aggregation": false,
+    "unresolved_groups": "quarantined; no claim of independent measurements"
+  },
+  "curation_sha256": "8b1a2ed2c06984ef91f45c8ccc0374e538e3ad905551e3548bde72ee6d039466",
+  "native_train_pool": 787044,
+  "native_validation": 112826,
+  "internal_validation_instances": [
+    "virus_human"
+  ],
+  "shared_development": {
+    "cross_species_mouse": "cross_species_mouse",
+    "cross_species_fly": "cross_species_mouse",
+    "cross_species_worm": "cross_species_mouse",
+    "cross_species_yeast": "cross_species_mouse",
+    "cross_species_ecoli": "cross_species_mouse"
+  }
+}

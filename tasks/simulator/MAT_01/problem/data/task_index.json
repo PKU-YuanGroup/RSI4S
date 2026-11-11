@@ -1,0 +1,81 @@
+[
+  {
+    "id": "xray:Co3Sn2S2_demo",
+    "known_structure": "known_structure.cif",
+    "beam": {
+      "energy": 16.0,
+      "flux": "1e9",
+      "size": 0.2
+    },
+    "detector_shape": [
+      151,
+      151
+    ],
+    "rois": {
+      "pd5": {
+        "x_range": [
+          45,
+          105
+        ],
+        "z_range": [
+          45,
+          105
+        ]
+      },
+      "pd6": {
+        "x_range": [
+          0,
+          151
+        ],
+        "z_range": [
+          74,
+          77
+        ]
+      },
+      "pd7": {
+        "x_range": [
+          74,
+          77
+        ],
+        "z_range": [
+          0,
+          151
+        ]
+      }
+    },
+    "initial_motors": {
+      "delta": 0.0,
+      "eta": 0.0,
+      "chi": 90.0,
+      "phi": 0.0,
+      "nu": 0.0,
+      "mu": 0.0
+    },
+    "motor_ranges": {
+      "delta": [
+        -1.0,
+        55.0
+      ],
+      "eta": [
+        -4.0,
+        32.95
+      ],
+      "chi": [
+        85.0,
+        185.0
+      ],
+      "phi": [
+        -190.0,
+        46.0
+      ],
+      "nu": [
+        -13.0,
+        29.0
+      ],
+      "mu": [
+        -0.5,
+        0.5
+      ]
+    }
+  }
+]

@@ -1,0 +1,153 @@
+{
+  "format": "naturebench-active-v2",
+  "task_id": "LIFE_15",
+  "seed": 42,
+  "train_pool": 75530,
+  "D0": 7553,
+  "Q": 67977,
+  "annotation_budget": 37765,
+  "official_validation": 0,
+  "T": 8827,
+  "counts": {
+    "D0": 7553,
+    "Q": 67977,
+    "T": 8827
+  },
+  "instances": {
+    "cell_kyse70": {
+      "D0": 1394,
+      "Q": 12540,
+      "T": 1718
+    },
+    "human": {
+      "D0": 5692,
+      "Q": 51230,
+      "T": 6505
+    },
+    "mouse": {
+      "D0": 467,
+      "Q": 4207,
+      "T": 604
+    }
+  },
+  "selected_instances": [
+    "cell_kyse70",
+    "human",
+    "mouse"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "3dde2eaa54d2165bf46e4df5676f3b4211e1f06333a8d60d79b98974adbb0cc5",
+  "source_sha256": "223b2869e9a28c164d50ed75b3eb14eacd4684957b497625fbd2546250e5ca9d",
+  "reference_sha256": "7475f6fddfa163ad38aa935a6b5372f08507d93bfea273cc846863f314d7729f",
+  "public_sha256": "cd0ebca982f2a378a3ea12b5e5e8f391e24285476b5ccecb9502254b8c7fee24",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "4c2c5120bb35211d7a23560087e6e5a3d46a8a07696aa30169f819a0cb7b2c0a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_labels.py": "87a68df5f4419fe2bec140a4c1f443c2e656e1f333f1ff99a61a3db3219c476b",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "curation.py": "3c025878cbceac8c6fb6d80cfdebdbae5f8af5e41825514a28a8661fb3739df8",
+    "documents.py": "41eec976da76db6ac81cab63a8c944081aa0b3cd204ef329d49a26e8c26dfed8",
+    "evidence.py": "43d207f88977843f8565bd8ae3baf1c3db70a02b874dc9b0f6397cee4b01e967",
+    "extended.py": "6d518a2095a0e618d6f0be96b5fc0c3e65924fa4199ccf05c554c58b55e5d569",
+    "prepare.py": "9a890ea91240321f8a340c1f98a77e373fd7fa06e16cbc28bada418205997c4a",
+    "smoke.py": "b8dd1f038136a6c046317f3722ce96457cb7488ffa98f3598acfc9818df0e953",
+    "sources.py": "35b342727145ad6242faa2b21a38699fed0fa654eafb4da1a111565d5e95b3ba",
+    "verify.py": "a29c7ffbbb3f9842b0c180ca1becb1178775bdf7c1f25106981d641f6dd3e828",
+    "verify_curation.py": "aa2c93b9ddaa9c884807427c25c09442a0f4dcbddfd8610a586fd221350f8dca"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained native record, including its defined target vector; duplicate train rows do not add units",
+    "validation": "native V retained except documented Test overlaps and unresolved within-V target conflicts; otherwise Agent selects acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "budget_denominator": "retained training pool N, fixed before D0 sampling; excluded and duplicate rows add no quota",
+    "pool_curation": "host input-identity checks and exact development-target consistency; no Test labels",
+    "repeated_split": null
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "curation": {
+    "policy": "holdout-first-exact-dedup-ambiguous-quarantine-v1",
+    "instances": {
+      "cell_kyse70": {
+        "native": {
+          "T": 1718,
+          "train": 15467
+        },
+        "retained": {
+          "T": 1718,
+          "train": 13934
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 7,
+            "duplicate_training_record": 21,
+            "overlaps_test_group": 1505
+          },
+          "V": {}
+        },
+        "duplicate_groups": 19,
+        "conflicting_development_groups": 3
+      },
+      "human": {
+        "native": {
+          "T": 6505,
+          "train": 58552
+        },
+        "retained": {
+          "T": 6505,
+          "train": 56922
+        },
+        "excluded": {
+          "train": {
+            "overlaps_test_group": 1630
+          },
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "mouse": {
+        "native": {
+          "T": 604,
+          "train": 5446
+        },
+        "retained": {
+          "T": 604,
+          "train": 4674
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 2,
+            "duplicate_training_record": 36,
+            "overlaps_test_group": 734
+          },
+          "V": {}
+        },
+        "duplicate_groups": 32,
+        "conflicting_development_groups": 1
+      }
+    },
+    "test_labels_read": false,
+    "test_members_and_order_preserved": true,
+    "target_aggregation": false,
+    "unresolved_groups": "quarantined; no claim of independent measurements"
+  },
+  "curation_sha256": "1cfaba8a6e6dd72495587d63b827ae1acb057cced4957bca50081cb92e4ebe5d",
+  "native_train_pool": 79465,
+  "native_validation": 0,
+  "internal_validation_instances": [
+    "cell_kyse70",
+    "human",
+    "mouse"
+  ],
+  "preparation_batch": "20261011-second-batch"
+}

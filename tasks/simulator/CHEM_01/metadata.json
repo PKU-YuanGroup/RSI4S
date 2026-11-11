@@ -1,0 +1,21 @@
+{
+  "task_id": "CHEM_01",
+  "benchmark": "simulator",
+  "name": "ChemGymRL WaterOilExtract-v0",
+  "protocol": "repeated_fixed_episode_v1",
+  "train_val_test": null,
+  "score_reference_note": "sota_score=1 is a unit normalization reference, not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "CHEM_01",
+      "metrics": [
+        {
+          "name": "episode_return",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

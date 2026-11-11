@@ -1,0 +1,27 @@
+{
+  "task_id": "ENV_02",
+  "benchmark": "medrsee",
+  "name": "CAMELS-GB 日径流重建",
+  "counts": {
+    "train_pool": 7347592,
+    "D0": 734759,
+    "Q": 6612833,
+    "annotation_budget": 3673796,
+    "V": 0,
+    "T": 2409999
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "ENV_02",
+      "metrics": [
+        {
+          "name": "basin_macro_nse",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

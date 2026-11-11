@@ -1,0 +1,127 @@
+{
+  "format": "naturebench-active-v2",
+  "task_id": "LIFE_14",
+  "seed": 42,
+  "train_pool": 12412,
+  "D0": 1241,
+  "Q": 11171,
+  "annotation_budget": 6206,
+  "official_validation": 0,
+  "T": 1240,
+  "counts": {
+    "D0": 1241,
+    "Q": 11171,
+    "T": 1240
+  },
+  "instances": {
+    "s571": {
+      "D0": 419,
+      "Q": 3773,
+      "T": 571
+    },
+    "s669": {
+      "D0": 822,
+      "Q": 7398,
+      "T": 669
+    }
+  },
+  "selected_instances": [
+    "s571",
+    "s669"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "8d0fe8e2f7b00b31871d3414ca9a6cb4d35fc6d4933522177e132d46c057dac0",
+  "source_sha256": "2df15e1cdacd8effe2dd8426da3320c958562cc3ecf6886b439f4413119b51c8",
+  "reference_sha256": "164b1a428dc6a40fc3e687d4484c4a1b85a7e21c1cd375d7ae1059302c75b666",
+  "public_sha256": "71e564cd88109eff40a453de5e09b3c577e15082d08e44ef83bc5c3caa56d4bb",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "c42c76ff838a6591b2ed5932099cdbbc8ee240f4c76e24ed449f21edecfcc67a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_labels.py": "87a68df5f4419fe2bec140a4c1f443c2e656e1f333f1ff99a61a3db3219c476b",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "curation.py": "37980a326a3d5e3e5a36d0d23c40d80eaa2370276ad783092ed16fac4896b490",
+    "documents.py": "a9792caa9acc7adf06ca047b94979cc24234bc9dd58749a82b29e18915d9850d",
+    "evidence.py": "3f38f4fffc9d2dcb31e227315b44e08f2618fe88e62026eeea40de0bd907f5d6",
+    "extended.py": "a3cbf1e55a5aea9a22e9e00773f0c1195a618a0aabcf630a2a6c4bdbe35c75c0",
+    "extended_notes.py": "11a5940ba4aa7a9123e14b04c06dfa04f415e53ff80a1f519cc6fd6c585dedd5",
+    "large_inputs.py": "095d3e18eaf3f2a8f7fb75e06ac4152b793b6f255220c4cb0519fed0909b0b65",
+    "prepare.py": "4bbd726451257d7adcb1af6fece4b6667cd02f27eff2d9f098a461f77a8d984d",
+    "smoke.py": "5e88dc438fc2bcd4015d2a5a6f479161c478e90430bbdbf4b14fe2fff916b39c",
+    "sources.py": "35b342727145ad6242faa2b21a38699fed0fa654eafb4da1a111565d5e95b3ba",
+    "verify.py": "7ad671bc754db74302367459f14de877854ee6e1493a46156e19d7693f2af6ba",
+    "verify_curation.py": "aa2c93b9ddaa9c884807427c25c09442a0f4dcbddfd8610a586fd221350f8dca",
+    "verify_extended.py": "78426948be663e8d2c19c2cbfd054a0fca747910134474abb3c6ce8b8cb885a4"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained native record, including its defined target vector; duplicate train rows do not add units",
+    "validation": "native V retained except documented Test overlaps and unresolved within-V target conflicts; otherwise Agent selects acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "budget_denominator": "retained training pool N, fixed before D0 sampling; excluded and duplicate rows add no quota",
+    "pool_curation": "host input-identity checks and exact development-target consistency; no Test labels",
+    "repeated_split": null
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "curation": {
+    "policy": "holdout-first-exact-dedup-ambiguous-quarantine-v1",
+    "instances": {
+      "s571": {
+        "native": {
+          "T": 571,
+          "train": 4346
+        },
+        "retained": {
+          "T": 571,
+          "train": 4192
+        },
+        "excluded": {
+          "train": {
+            "overlaps_test_group": 154
+          },
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "s669": {
+        "native": {
+          "T": 669,
+          "train": 8754
+        },
+        "retained": {
+          "T": 669,
+          "train": 8220
+        },
+        "excluded": {
+          "train": {
+            "overlaps_test_group": 534
+          },
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      }
+    },
+    "test_labels_read": false,
+    "test_members_and_order_preserved": true,
+    "target_aggregation": false,
+    "unresolved_groups": "quarantined; no claim of independent measurements"
+  },
+  "curation_sha256": "0846c4d3d28da136d091789c8cd502db590a994f8084ccd04f6afd3407836c3c",
+  "native_train_pool": 13100,
+  "native_validation": 0,
+  "internal_validation_instances": [
+    "s571",
+    "s669"
+  ],
+  "preparation_batch": "20261011-second-batch"
+}

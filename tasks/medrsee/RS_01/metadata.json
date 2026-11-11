@@ -1,0 +1,27 @@
+{
+  "task_id": "RS_01",
+  "benchmark": "medrsee",
+  "name": "Landslide4Sense 滑坡分割",
+  "counts": {
+    "train_pool": 3799,
+    "D0": 379,
+    "Q": 3420,
+    "annotation_budget": 1899,
+    "V": 245,
+    "T": 800
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "RS_01",
+      "metrics": [
+        {
+          "name": "landslide_f1",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

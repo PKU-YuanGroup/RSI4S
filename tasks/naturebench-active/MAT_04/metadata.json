@@ -1,0 +1,413 @@
+{
+  "format": "naturebench-active-v2",
+  "task_id": "MAT_04",
+  "seed": 42,
+  "train_pool": 67278,
+  "D0": 6727,
+  "Q": 60551,
+  "annotation_budget": 33639,
+  "official_validation": 7517,
+  "T": 18861,
+  "counts": {
+    "D0": 6727,
+    "Q": 60551,
+    "T": 18861,
+    "V": 7517
+  },
+  "instances": {
+    "ea": {
+      "D0": 3065,
+      "Q": 27580,
+      "T": 8594,
+      "V": 3424
+    },
+    "eat": {
+      "D0": 28,
+      "Q": 252,
+      "T": 78,
+      "V": 32
+    },
+    "eea": {
+      "D0": 26,
+      "Q": 238,
+      "T": 74,
+      "V": 30
+    },
+    "egb": {
+      "D0": 40,
+      "Q": 363,
+      "T": 113,
+      "V": 45
+    },
+    "egc": {
+      "D0": 243,
+      "Q": 2190,
+      "T": 676,
+      "V": 271
+    },
+    "ei": {
+      "D0": 27,
+      "Q": 239,
+      "T": 74,
+      "V": 30
+    },
+    "eps": {
+      "D0": 28,
+      "Q": 247,
+      "T": 77,
+      "V": 30
+    },
+    "ip": {
+      "D0": 3065,
+      "Q": 27580,
+      "T": 8594,
+      "V": 3424
+    },
+    "mar1": {
+      "D0": 37,
+      "Q": 337,
+      "T": 104,
+      "V": 42
+    },
+    "mar2": {
+      "D0": 37,
+      "Q": 337,
+      "T": 104,
+      "V": 42
+    },
+    "nc": {
+      "D0": 27,
+      "Q": 248,
+      "T": 77,
+      "V": 30
+    },
+    "opv": {
+      "D0": 85,
+      "Q": 765,
+      "T": 241,
+      "V": 96
+    },
+    "pe": {
+      "D0": 19,
+      "Q": 175,
+      "T": 55,
+      "V": 21
+    }
+  },
+  "selected_instances": [
+    "ea",
+    "eat",
+    "eea",
+    "egb",
+    "egc",
+    "ei",
+    "eps",
+    "ip",
+    "mar1",
+    "mar2",
+    "nc",
+    "opv",
+    "pe"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "11a95b530e18be75daf8d5a1506429e1725e7dc82986c9776fd9b44715e78fab",
+  "source_sha256": "1619d83a3b2dca3bede2d6ed3c08b3c415be5e9ee1c3e0964d37453c19ef284f",
+  "reference_sha256": "372cdd6dfab3b9fe18eef4feca659d960616a57001954b20200dc31bd875d62a",
+  "public_sha256": "a34462a21e982d98c46c099c7de6874abfe78362c82b2c428184057936ca60e2",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "4c2c5120bb35211d7a23560087e6e5a3d46a8a07696aa30169f819a0cb7b2c0a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_labels.py": "87a68df5f4419fe2bec140a4c1f443c2e656e1f333f1ff99a61a3db3219c476b",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "curation.py": "5a26ee9a1e37d0f78efeb70533b645e4b760636e3ccb60be19394cd9715f494e",
+    "documents.py": "41eec976da76db6ac81cab63a8c944081aa0b3cd204ef329d49a26e8c26dfed8",
+    "evidence.py": "43d207f88977843f8565bd8ae3baf1c3db70a02b874dc9b0f6397cee4b01e967",
+    "prepare.py": "9163a942528c7b2f2609177776d4f972371187bd35a0c5bd72db0ce7ff9978eb",
+    "smoke.py": "b8dd1f038136a6c046317f3722ce96457cb7488ffa98f3598acfc9818df0e953",
+    "sources.py": "86e4a899294c63b1e5d61d06bab07f763605d15b241f338c74875508152b8c84",
+    "verify.py": "70d81e1b09a571b35cdccac48d624f42d3aec6513763f0bacaa23cd028179c90",
+    "verify_curation.py": "aa2c93b9ddaa9c884807427c25c09442a0f4dcbddfd8610a586fd221350f8dca"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained native record, including its defined target vector; duplicate train rows do not add units",
+    "validation": "native V retained except documented Test overlaps and unresolved within-V target conflicts; otherwise Agent selects acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "budget_denominator": "retained training pool N, fixed before D0 sampling; excluded and duplicate rows add no quota",
+    "pool_curation": "host input-identity checks and exact development-target consistency; no Test labels"
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "curation": {
+    "policy": "holdout-first-exact-dedup-ambiguous-quarantine-v1",
+    "instances": {
+      "ea": {
+        "native": {
+          "T": 8594,
+          "V": 3437,
+          "train": 30935
+        },
+        "retained": {
+          "T": 8594,
+          "V": 3424,
+          "train": 30645
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 200,
+            "overlaps_test": 60,
+            "overlaps_validation": 30
+          },
+          "V": {
+            "overlaps_test": 13
+          }
+        },
+        "duplicate_groups": 212,
+        "conflicting_development_groups": 130
+      },
+      "eat": {
+        "native": {
+          "T": 78,
+          "V": 32,
+          "train": 280
+        },
+        "retained": {
+          "T": 78,
+          "V": 32,
+          "train": 280
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "eea": {
+        "native": {
+          "T": 74,
+          "V": 30,
+          "train": 264
+        },
+        "retained": {
+          "T": 74,
+          "V": 30,
+          "train": 264
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "egb": {
+        "native": {
+          "T": 113,
+          "V": 45,
+          "train": 403
+        },
+        "retained": {
+          "T": 113,
+          "V": 45,
+          "train": 403
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "egc": {
+        "native": {
+          "T": 676,
+          "V": 271,
+          "train": 2433
+        },
+        "retained": {
+          "T": 676,
+          "V": 271,
+          "train": 2433
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "ei": {
+        "native": {
+          "T": 74,
+          "V": 30,
+          "train": 266
+        },
+        "retained": {
+          "T": 74,
+          "V": 30,
+          "train": 266
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "eps": {
+        "native": {
+          "T": 77,
+          "V": 30,
+          "train": 275
+        },
+        "retained": {
+          "T": 77,
+          "V": 30,
+          "train": 275
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "ip": {
+        "native": {
+          "T": 8594,
+          "V": 3437,
+          "train": 30935
+        },
+        "retained": {
+          "T": 8594,
+          "V": 3424,
+          "train": 30645
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 200,
+            "overlaps_test": 60,
+            "overlaps_validation": 30
+          },
+          "V": {
+            "overlaps_test": 13
+          }
+        },
+        "duplicate_groups": 212,
+        "conflicting_development_groups": 130
+      },
+      "mar1": {
+        "native": {
+          "T": 104,
+          "V": 42,
+          "train": 374
+        },
+        "retained": {
+          "T": 104,
+          "V": 42,
+          "train": 374
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "mar2": {
+        "native": {
+          "T": 104,
+          "V": 42,
+          "train": 374
+        },
+        "retained": {
+          "T": 104,
+          "V": 42,
+          "train": 374
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "nc": {
+        "native": {
+          "T": 77,
+          "V": 30,
+          "train": 275
+        },
+        "retained": {
+          "T": 77,
+          "V": 30,
+          "train": 275
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "opv": {
+        "native": {
+          "T": 241,
+          "V": 96,
+          "train": 864
+        },
+        "retained": {
+          "T": 241,
+          "V": 96,
+          "train": 850
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 8,
+            "duplicate_training_record": 2,
+            "overlaps_test": 4
+          },
+          "V": {}
+        },
+        "duplicate_groups": 10,
+        "conflicting_development_groups": 4
+      },
+      "pe": {
+        "native": {
+          "T": 55,
+          "V": 21,
+          "train": 195
+        },
+        "retained": {
+          "T": 55,
+          "V": 21,
+          "train": 194
+        },
+        "excluded": {
+          "train": {
+            "overlaps_test": 1
+          },
+          "V": {}
+        },
+        "duplicate_groups": 1,
+        "conflicting_development_groups": 0
+      }
+    },
+    "test_labels_read": false,
+    "test_members_and_order_preserved": true,
+    "target_aggregation": false,
+    "unresolved_groups": "quarantined; no claim of independent measurements"
+  },
+  "curation_sha256": "d33f5c69d4c3cd7faeff309c1fe2c9539f1969a0ba06d18232d0317d1f57347f",
+  "native_train_pool": 67873,
+  "native_validation": 7543
+}

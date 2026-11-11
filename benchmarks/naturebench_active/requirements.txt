@@ -1,0 +1,3 @@
+# Additional preparation dependency; scientific Python already supplies the
+# NumPy/pandas/pyarrow/RDKit/h5py/Biopython packages used by the source adapters.
+lmdb==3.0.0

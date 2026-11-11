@@ -1,0 +1,298 @@
+{
+  "candidate_id": "MAT_01",
+  "contract_type": "native_interactive",
+  "scenario": "Original demo Co3Sn2S2 crystal; CPU offline XrayExperimentSPEC; actual organizer-owned initial state frozen",
+  "input": "Known CIF, commanded motor status, native sample-information query, detector exposures and ROI scans",
+  "output": "Sequential native actions; orientation estimate formed by original or0/or1 reflections; finish returns native symmetry-aware relative angle",
+  "actions": {
+    "wh": {
+      "description": "Read the current commanded motor positions.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "example": {
+        "action": "wh",
+        "arguments": {}
+      }
+    },
+    "get_sample_information": {
+      "description": "Read the known crystal structure and theoretical diffraction information.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "example": {
+        "action": "get_sample_information",
+        "arguments": {}
+      }
+    },
+    "umv": {
+      "description": "Move one or more motors to absolute angles in degrees. Motor names are direct keys inside arguments. Omitted motors keep their current values.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {
+          "delta": {
+            "type": "number",
+            "minimum": -1.0,
+            "maximum": 55.0,
+            "description": "Absolute motor angle in degrees."
+          },
+          "eta": {
+            "type": "number",
+            "minimum": -4.0,
+            "maximum": 32.95,
+            "description": "Absolute motor angle in degrees."
+          },
+          "chi": {
+            "type": "number",
+            "minimum": 85.0,
+            "maximum": 185.0,
+            "description": "Absolute motor angle in degrees."
+          },
+          "phi": {
+            "type": "number",
+            "minimum": -190.0,
+            "maximum": 46.0,
+            "description": "Absolute motor angle in degrees."
+          },
+          "nu": {
+            "type": "number",
+            "minimum": -13.0,
+            "maximum": 29.0,
+            "description": "Absolute motor angle in degrees."
+          },
+          "mu": {
+            "type": "number",
+            "minimum": -0.5,
+            "maximum": 0.5,
+            "description": "Absolute motor angle in degrees."
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "minProperties": 1
+      },
+      "example": {
+        "action": "umv",
+        "arguments": {
+          "delta": 20.0,
+          "eta": 10.0
+        }
+      }
+    },
+    "pd_exposure": {
+      "description": "Acquire one detector exposure at the current motor positions.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 10,
+            "description": "Exposure duration in seconds."
+          }
+        },
+        "required": [
+          "time"
+        ],
+        "additionalProperties": false
+      },
+      "example": {
+        "action": "pd_exposure",
+        "arguments": {
+          "time": 1.0
+        }
+      }
+    },
+    "dscan": {
+      "description": "Scan one motor between start and finish offsets relative to its current position, in degrees. Both endpoints plus the current position must be within the motor range in task_index.json. intervals is the number of exposure points, including endpoints, and spends that many exposures.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {
+          "motor": {
+            "type": "string",
+            "enum": [
+              "delta",
+              "eta",
+              "chi",
+              "phi",
+              "nu",
+              "mu"
+            ]
+          },
+          "start": {
+            "type": "number",
+            "description": "Starting offset in degrees relative to the current motor position."
+          },
+          "finish": {
+            "type": "number",
+            "description": "Finishing offset in degrees relative to the current motor position."
+          },
+          "intervals": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 32,
+            "description": "Number of exposure points, including both endpoints."
+          },
+          "time": {
+            "type": "number",
+            "minimum": 0.001,
+            "maximum": 10,
+            "description": "Exposure duration in seconds."
+          },
+          "roi_name": {
+            "type": "string",
+            "enum": [
+              "pd5",
+              "pd6",
+              "pd7"
+            ]
+          }
+        },
+        "required": [
+          "motor",
+          "start",
+          "finish",
+          "intervals",
+          "time",
+          "roi_name"
+        ],
+        "additionalProperties": false
+      },
+      "example": {
+        "action": "dscan",
+        "arguments": {
+          "motor": "delta",
+          "start": -0.1,
+          "finish": 0.1,
+          "intervals": 2,
+          "time": 1.0,
+          "roi_name": "pd6"
+        }
+      }
+    },
+    "or0": {
+      "description": "Record the first indexed reflection at the current motor positions. H, K and L are separate numeric arguments. Use reflections identified from measurements; this call does not acquire an exposure.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {
+          "H": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100,
+            "description": "Reflection Miller index H."
+          },
+          "K": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100,
+            "description": "Reflection Miller index K."
+          },
+          "L": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100,
+            "description": "Reflection Miller index L."
+          }
+        },
+        "required": [
+          "H",
+          "K",
+          "L"
+        ],
+        "additionalProperties": false
+      },
+      "example": {
+        "action": "or0",
+        "arguments": {
+          "H": 0,
+          "K": 0,
+          "L": 6
+        }
+      }
+    },
+    "or1": {
+      "description": "Record the second indexed reflection at the current motor positions and calculate the orientation when the reference geometry is valid. Choose a nonparallel reflection and appropriate motor positions based on measurements. This call does not acquire an exposure.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {
+          "H": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100,
+            "description": "Reflection Miller index H."
+          },
+          "K": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100,
+            "description": "Reflection Miller index K."
+          },
+          "L": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100,
+            "description": "Reflection Miller index L."
+          }
+        },
+        "required": [
+          "H",
+          "K",
+          "L"
+        ],
+        "additionalProperties": false
+      },
+      "example": {
+        "action": "or1",
+        "arguments": {
+          "H": 0,
+          "K": 1,
+          "L": 11
+        }
+      }
+    },
+    "finish": {
+      "description": "End the episode permanently and read the native orientation score. No arguments; remains available after the command budget.",
+      "arguments_schema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "example": {
+        "action": "finish",
+        "arguments": {}
+      }
+    }
+  },
+  "budgets": {
+    "commands": 128,
+    "detector_exposures": 64,
+    "source": "Task73 fixed acquisition allowance, not claimed original paper budget"
+  },
+  "scoring": {
+    "entry": "trusted/episode.py:Episode.finish",
+    "metric": "Original symmetry-aware relative angle in degrees; lower is better",
+    "missing_orientation": "Explicit failure with null score",
+    "synthetic_identity_degrees": 0.4050717353820801,
+    "native_behavior": "Native acos linear extrapolation makes identity angle slightly nonzero; preserved"
+  },
+  "access": "Only public/ and serialized action responses visible. Organizer owns simulator, hidden offsets, RNG and scoring. Run one isolated organizer process per episode; this adapter is not an OS sandbox.",
+  "limitations": [
+    "One original demo configuration, not all paper hardware/agent benchmarks",
+    "No physical instrument, training, LLM, API or action optimization during preparation",
+    "Native simulator uses fixed Gaussian motor offsets and stochastic detector effects; actual state and RNG are frozen",
+    "Tested compatible CPU dependency versions are pinned separately from upstream broad UI/API requirements"
+  ],
+  "schema_version": 2,
+  "invocation": "Pass each action example directly as simulator_action tool input. arguments_schema describes the exact keys inside arguments; argument names are case-sensitive. Examples illustrate syntax, not an optimized measurement plan.",
+  "response_notes": [
+    "A top-level error reports an argument or adapter failure. Native operations may instead return observation.result.success=false and a message; inspect that result before continuing.",
+    "A syntactically accepted or0/or1 call can fail when reference geometry is invalid. Call examples do not guarantee a scientifically valid orientation."
+  ]
+}

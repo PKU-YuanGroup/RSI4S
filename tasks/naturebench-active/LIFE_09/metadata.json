@@ -1,0 +1,553 @@
+{
+  "format": "naturebench-active-v2",
+  "task_id": "LIFE_09",
+  "seed": 42,
+  "train_pool": 893421,
+  "D0": 89342,
+  "Q": 804079,
+  "annotation_budget": 446710,
+  "official_validation": 40570,
+  "T": 80008,
+  "counts": {
+    "D0": 89342,
+    "Q": 804079,
+    "T": 80008,
+    "V": 40570
+  },
+  "instances": {
+    "H2AFZ": {
+      "D0": 2985,
+      "Q": 26868,
+      "T": 3000
+    },
+    "H3K27ac": {
+      "D0": 2989,
+      "Q": 26896,
+      "T": 1616
+    },
+    "H3K27me3": {
+      "D0": 2987,
+      "Q": 26884,
+      "T": 3000
+    },
+    "H3K36me3": {
+      "D0": 2989,
+      "Q": 26896,
+      "T": 3000
+    },
+    "H3K4me1": {
+      "D0": 2988,
+      "Q": 26889,
+      "T": 3000
+    },
+    "H3K4me2": {
+      "D0": 2990,
+      "Q": 26908,
+      "T": 2138
+    },
+    "H3K4me3": {
+      "D0": 1742,
+      "Q": 15681,
+      "T": 776
+    },
+    "H3K9ac": {
+      "D0": 2320,
+      "Q": 20883,
+      "T": 1004
+    },
+    "H3K9me3": {
+      "D0": 2733,
+      "Q": 24599,
+      "T": 850
+    },
+    "H4K20me1": {
+      "D0": 2986,
+      "Q": 26876,
+      "T": 2270
+    },
+    "deepstarr": {
+      "D0": 40229,
+      "Q": 362059,
+      "T": 41186,
+      "V": 40570
+    },
+    "enhancers": {
+      "D0": 2980,
+      "Q": 26823,
+      "T": 3000
+    },
+    "enhancers_types": {
+      "D0": 2980,
+      "Q": 26823,
+      "T": 3000
+    },
+    "promoter_all": {
+      "D0": 2987,
+      "Q": 26885,
+      "T": 1584
+    },
+    "promoter_no_tata": {
+      "D0": 2987,
+      "Q": 26885,
+      "T": 1372
+    },
+    "promoter_tata": {
+      "D0": 506,
+      "Q": 4553,
+      "T": 212
+    },
+    "splice_sites_acceptors": {
+      "D0": 2986,
+      "Q": 26872,
+      "T": 3000
+    },
+    "splice_sites_all": {
+      "D0": 2994,
+      "Q": 26943,
+      "T": 3000
+    },
+    "splice_sites_donors": {
+      "D0": 2984,
+      "Q": 26856,
+      "T": 3000
+    }
+  },
+  "selected_instances": [
+    "H2AFZ",
+    "H3K27ac",
+    "H3K27me3",
+    "H3K36me3",
+    "H3K4me1",
+    "H3K4me2",
+    "H3K4me3",
+    "H3K9ac",
+    "H3K9me3",
+    "H4K20me1",
+    "deepstarr",
+    "enhancers",
+    "enhancers_types",
+    "promoter_all",
+    "promoter_no_tata",
+    "promoter_tata",
+    "splice_sites_acceptors",
+    "splice_sites_all",
+    "splice_sites_donors"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "1294d58b49aae6530704ff6f2c4b21a309e78089cdc55d1a3acf264eab8275f9",
+  "source_sha256": "ab15ba6a0427e2533bee188b8508ff86dbfd391feb5d1abe373a94c564a450d7",
+  "reference_sha256": "2517b18a502b443259ad0be2b237ddafcbb37beec519540aaa38670d401acd32",
+  "public_sha256": "656a6acc74710d0a5a3f210aa972756dee5e1ed083bd59c355825f89f41464b9",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "c42c76ff838a6591b2ed5932099cdbbc8ee240f4c76e24ed449f21edecfcc67a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_labels.py": "87a68df5f4419fe2bec140a4c1f443c2e656e1f333f1ff99a61a3db3219c476b",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "curation.py": "3c025878cbceac8c6fb6d80cfdebdbae5f8af5e41825514a28a8661fb3739df8",
+    "documents.py": "41eec976da76db6ac81cab63a8c944081aa0b3cd204ef329d49a26e8c26dfed8",
+    "evidence.py": "3f38f4fffc9d2dcb31e227315b44e08f2618fe88e62026eeea40de0bd907f5d6",
+    "extended.py": "318d4bd3760d524ff38dd61780865ccf2c8f76bbccfcf0663c49c336609e83f1",
+    "large_inputs.py": "6e4fa615c97460ddae4dfc61b693a56e03fe22fcf8e7b68818ef469c462b6421",
+    "prepare.py": "80844b8db6b5f784119ee5a31021fa7962683a794ab197ea9dd8cdb49d8d54ff",
+    "smoke.py": "5e88dc438fc2bcd4015d2a5a6f479161c478e90430bbdbf4b14fe2fff916b39c",
+    "sources.py": "35b342727145ad6242faa2b21a38699fed0fa654eafb4da1a111565d5e95b3ba",
+    "verify.py": "a29c7ffbbb3f9842b0c180ca1becb1178775bdf7c1f25106981d641f6dd3e828",
+    "verify_curation.py": "aa2c93b9ddaa9c884807427c25c09442a0f4dcbddfd8610a586fd221350f8dca"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained native record, including its defined target vector; duplicate train rows do not add units",
+    "validation": "native V retained except documented Test overlaps and unresolved within-V target conflicts; otherwise Agent selects acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "budget_denominator": "retained training pool N, fixed before D0 sampling; excluded and duplicate rows add no quota",
+    "pool_curation": "host input-identity checks and exact development-target consistency; no Test labels",
+    "repeated_split": null
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "curation": {
+    "policy": "holdout-first-exact-dedup-ambiguous-quarantine-v1",
+    "instances": {
+      "H2AFZ": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29853
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 147
+          },
+          "V": {}
+        },
+        "duplicate_groups": 184,
+        "conflicting_development_groups": 0
+      },
+      "H3K27ac": {
+        "native": {
+          "T": 1616,
+          "train": 30000
+        },
+        "retained": {
+          "T": 1616,
+          "train": 29885
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 115
+          },
+          "V": {}
+        },
+        "duplicate_groups": 126,
+        "conflicting_development_groups": 0
+      },
+      "H3K27me3": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29871
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 129
+          },
+          "V": {}
+        },
+        "duplicate_groups": 182,
+        "conflicting_development_groups": 0
+      },
+      "H3K36me3": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29885
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 115
+          },
+          "V": {}
+        },
+        "duplicate_groups": 155,
+        "conflicting_development_groups": 0
+      },
+      "H3K4me1": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29877
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 123
+          },
+          "V": {}
+        },
+        "duplicate_groups": 156,
+        "conflicting_development_groups": 0
+      },
+      "H3K4me2": {
+        "native": {
+          "T": 2138,
+          "train": 30000
+        },
+        "retained": {
+          "T": 2138,
+          "train": 29898
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 102
+          },
+          "V": {}
+        },
+        "duplicate_groups": 126,
+        "conflicting_development_groups": 0
+      },
+      "H3K4me3": {
+        "native": {
+          "T": 776,
+          "train": 17468
+        },
+        "retained": {
+          "T": 776,
+          "train": 17423
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 45
+          },
+          "V": {}
+        },
+        "duplicate_groups": 48,
+        "conflicting_development_groups": 0
+      },
+      "H3K9ac": {
+        "native": {
+          "T": 1004,
+          "train": 23274
+        },
+        "retained": {
+          "T": 1004,
+          "train": 23203
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 71
+          },
+          "V": {}
+        },
+        "duplicate_groups": 75,
+        "conflicting_development_groups": 0
+      },
+      "H3K9me3": {
+        "native": {
+          "T": 850,
+          "train": 27438
+        },
+        "retained": {
+          "T": 850,
+          "train": 27332
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 106
+          },
+          "V": {}
+        },
+        "duplicate_groups": 111,
+        "conflicting_development_groups": 0
+      },
+      "H4K20me1": {
+        "native": {
+          "T": 2270,
+          "train": 30000
+        },
+        "retained": {
+          "T": 2270,
+          "train": 29862
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 138
+          },
+          "V": {}
+        },
+        "duplicate_groups": 166,
+        "conflicting_development_groups": 0
+      },
+      "deepstarr": {
+        "native": {
+          "T": 41186,
+          "V": 40570,
+          "train": 402296
+        },
+        "retained": {
+          "T": 41186,
+          "V": 40570,
+          "train": 402288
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 8
+          },
+          "V": {}
+        },
+        "duplicate_groups": 4,
+        "conflicting_development_groups": 4
+      },
+      "enhancers": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29803
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 197
+          },
+          "V": {}
+        },
+        "duplicate_groups": 252,
+        "conflicting_development_groups": 0
+      },
+      "enhancers_types": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29803
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 197
+          },
+          "V": {}
+        },
+        "duplicate_groups": 252,
+        "conflicting_development_groups": 0
+      },
+      "promoter_all": {
+        "native": {
+          "T": 1584,
+          "train": 30000
+        },
+        "retained": {
+          "T": 1584,
+          "train": 29872
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 128
+          },
+          "V": {}
+        },
+        "duplicate_groups": 141,
+        "conflicting_development_groups": 0
+      },
+      "promoter_no_tata": {
+        "native": {
+          "T": 1372,
+          "train": 30000
+        },
+        "retained": {
+          "T": 1372,
+          "train": 29872
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 128
+          },
+          "V": {}
+        },
+        "duplicate_groups": 137,
+        "conflicting_development_groups": 0
+      },
+      "promoter_tata": {
+        "native": {
+          "T": 212,
+          "train": 5062
+        },
+        "retained": {
+          "T": 212,
+          "train": 5059
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 3
+          },
+          "V": {}
+        },
+        "duplicate_groups": 3,
+        "conflicting_development_groups": 0
+      },
+      "splice_sites_acceptors": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29858
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 142
+          },
+          "V": {}
+        },
+        "duplicate_groups": 175,
+        "conflicting_development_groups": 0
+      },
+      "splice_sites_all": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29937
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 63
+          },
+          "V": {}
+        },
+        "duplicate_groups": 86,
+        "conflicting_development_groups": 0
+      },
+      "splice_sites_donors": {
+        "native": {
+          "T": 3000,
+          "train": 30000
+        },
+        "retained": {
+          "T": 3000,
+          "train": 29840
+        },
+        "excluded": {
+          "train": {
+            "duplicate_training_record": 160
+          },
+          "V": {}
+        },
+        "duplicate_groups": 201,
+        "conflicting_development_groups": 0
+      }
+    },
+    "test_labels_read": false,
+    "test_members_and_order_preserved": true,
+    "target_aggregation": false,
+    "unresolved_groups": "quarantined; no claim of independent measurements"
+  },
+  "curation_sha256": "606ab6b0bf8f2d261efd4ed8210f5523c5b69cd871e3bb88cacca9cb5f978375",
+  "native_train_pool": 895538,
+  "native_validation": 40570,
+  "internal_validation_instances": [
+    "H2AFZ",
+    "H3K27ac",
+    "H3K27me3",
+    "H3K36me3",
+    "H3K4me1",
+    "H3K4me2",
+    "H3K4me3",
+    "H3K9ac",
+    "H3K9me3",
+    "H4K20me1",
+    "enhancers",
+    "enhancers_types",
+    "promoter_all",
+    "promoter_no_tata",
+    "promoter_tata",
+    "splice_sites_acceptors",
+    "splice_sites_all",
+    "splice_sites_donors"
+  ],
+  "preparation_batch": "20261011-second-batch"
+}

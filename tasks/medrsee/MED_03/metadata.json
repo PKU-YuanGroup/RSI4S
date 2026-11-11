@@ -1,0 +1,27 @@
+{
+  "task_id": "MED_03",
+  "benchmark": "medrsee",
+  "name": "MSD Liver 肝脏与肿瘤分割",
+  "counts": {
+    "train_pool": 118,
+    "D0": 11,
+    "Q": 107,
+    "annotation_budget": 59,
+    "V": 0,
+    "T": 13
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_03",
+      "metrics": [
+        {
+          "name": "structure_dice",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

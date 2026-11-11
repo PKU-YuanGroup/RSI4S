@@ -1,0 +1,11 @@
+{
+  "archive_history": true,
+  "archive_trigger_chars": 120000,
+  "archive_recent_chars": 60000,
+  "include_scientific_facts": true,
+  "deduplicate_resources": true,
+  "deduplicate_tool_inputs": true,
+  "clean_terminal_output": true,
+  "tool_display_bytes": 32768,
+  "stdout_preview_chars": 12000
+}

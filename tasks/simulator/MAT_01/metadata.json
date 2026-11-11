@@ -1,0 +1,21 @@
+{
+  "task_id": "MAT_01",
+  "benchmark": "simulator",
+  "name": "AI X-ray scientist Co3Sn2S2",
+  "protocol": "repeated_fixed_episode_v1",
+  "train_val_test": null,
+  "score_reference_note": "sota_score=1 is a unit normalization reference, not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MAT_01",
+      "metrics": [
+        {
+          "name": "relative_angle_degrees",
+          "is_primary": true,
+          "metric_direction": "lower_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

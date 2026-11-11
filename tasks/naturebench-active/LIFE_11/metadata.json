@@ -1,0 +1,122 @@
+{
+  "format": "naturebench-active-reviewed-v1",
+  "task_id": "LIFE_11",
+  "seed": 42,
+  "train_pool": 67451,
+  "D0": 6745,
+  "Q": 60706,
+  "annotation_budget": 33725,
+  "official_validation": 2600,
+  "T": 7816,
+  "counts": {
+    "D0": 6745,
+    "Q": 60706,
+    "T": 7816,
+    "V": 2600
+  },
+  "instances": {
+    "archiveii600": {
+      "D0": 3104,
+      "Q": 27932,
+      "T": 3911,
+      "V": 1300
+    },
+    "nrc": {
+      "D0": 632,
+      "Q": 5688,
+      "T": 2600
+    },
+    "ts0": {
+      "D0": 3009,
+      "Q": 27086,
+      "T": 1305,
+      "V": 1300
+    }
+  },
+  "selected_instances": [
+    "archiveii600",
+    "nrc",
+    "ts0"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "0e0a3fca6ac50f51201e2bbb8819afc77e5a3ddbb7cdad6a82ff8e17cd76c82b",
+  "source_sha256": "7c391437e81228b2066b59310a63992b13fe25fb0b08141231f42cd7d51183e8",
+  "reference_sha256": "3f981c5ca340f22e9320155d777e6bb2d20835914a2a5ba1b3e7bf06a65668ae",
+  "public_sha256": "a4d22ef447ceac6d51a692efc3ef6f300722e7ad1adcb8dc025cdd27cf0a1e8e",
+  "code_sha256": {
+    "benchmarks/naturebench_active/__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "benchmarks/naturebench_active/adapters/__init__.py": "2cfaddb5ba82c87853a329402e7c53ba33bcbcfac2989ed81b0ea1a17ffb5fd3",
+    "benchmarks/naturebench_active/adapters/attachments.py": "6293e9e1fddcb08098af328837a832af597b55a5789ede5e77f24585073efea5",
+    "benchmarks/naturebench_active/adapters/graph.py": "b6add21b9805573438b47230c3283afe5988fe5f6da2f17bab23dedeada33a5f",
+    "benchmarks/naturebench_active/adapters/nanoparticle.py": "c18eb0412cfaf2c59d51cde76165729537a59597b9c2f908e1c23e56baacd172",
+    "benchmarks/naturebench_active/adapters/noncoding.py": "8f208a56b7eb22174f056cf72fe32bbf97c17c92fca9ec32c645402c6f7f459a",
+    "benchmarks/naturebench_active/adapters/pdb.py": "cc9cea66cead6462690ec728f22d105c3ca0a5babac1c5ce831a679d022fa3db",
+    "benchmarks/naturebench_active/adapters/pending.py": "c40ea30f53d946c27d745cd797738ad6a063abf7b5b7ad8661dfcaf3b46d67a2",
+    "benchmarks/naturebench_active/adapters/resp.py": "4c369a06c3afb8387fa0e26cb52601c7d8855288650c37e5b16a958181d8ef65",
+    "benchmarks/naturebench_active/common.py": "4330eac95d3988c8f8517d62ad65dee42055c69bb6c53c6f00340101fe8f7fcd",
+    "benchmarks/naturebench_active/evidence.py": "34f3b67bd36451c2b2c7aeded1e23efbcea85d46dbb098979d6788b560f5d7d0",
+    "benchmarks/naturebench_active/execution.py": "a034b9c55211a17e90a69bbd14664f8dd77d3c8187f116643b1273147d26bc24",
+    "benchmarks/naturebench_active/inference.py": "f6e26455be7f6771effd53c5490bb52b39f5980c314a8dfc110ea9c71f1e7e9e",
+    "benchmarks/naturebench_active/inputs.py": "f58bee935a27f77ba6377745a70aab5664e3a1d0f5c6d3673fd381e0f6bfbe72",
+    "benchmarks/naturebench_active/outputs.py": "5af5c7b74fb15cbf07d892783619841a11d4715d9ea7f5e1602cad1941a365e3",
+    "benchmarks/naturebench_active/release.py": "17a72f9cefb3da415c1c76c8f754417186df536c4303aebb6cbc9c015ceb4ce6",
+    "benchmarks/naturebench_active/runtime.py": "9598d9a3c434fc8bd1e93ae16947e3886a8a37a1e1eeab3a6d02f53d654d2bfd",
+    "benchmarks/naturebench_active/scoring/__init__.py": "9e0946093f32b336457760ad00d046a19650e487c016a8215db940016cb160c7",
+    "benchmarks/naturebench_active/scoring/cryo.py": "4a2d5125a7ce9ceddeb9fb1bfb8300e1fa1bdb0723c68bc8356f0d49d80eb6ac",
+    "benchmarks/naturebench_active/scoring/linker.py": "de3a25f603aa4a20a95df302b67e59fbf3fcfd873f90d4f22a54d8e366a4dc3f",
+    "benchmarks/naturebench_active/scoring/metrics.py": "57a230562542bffe1b1f8f8135c61e53ad9cedc560f4b7057c4cff5716474f86",
+    "benchmarks/naturebench_active/scoring/native_runner.py": "93fb078c6cae62882908d364e99d2e36c615ee2b706d4a904c0f61e57b2f830d",
+    "benchmarks/naturebench_active/scoring/optimization.py": "378758f76caf210186c3e2dd87877834b73a3fa2037c15db65e0307a2e1de7b9",
+    "benchmarks/naturebench_active/scoring/pending.py": "396ef181ef30db939d0af49c9265d4c322484ec70bc9b16033d61014972f4aad",
+    "benchmarks/naturebench_active/scoring/scientific.py": "4f78cb0c713ed54950c5ccb1558ce1c396a5bcfdfe55d306ac02b9dafb27af6e",
+    "benchmarks/naturebench_active/scoring/structure.py": "81b321270794868044d41507e36b2210ac20e02eb966491dc94a9a5d27bb6abb",
+    "benchmarks/naturebench_active/scoring/terminal.py": "29d4667a5c74bbab6e91bc0303d4c49cda539f2162e97e7787cc684dc2149e28",
+    "benchmarks/naturebench_active/scoring/terminal_noncoding.py": "e26d9a27a99a2a6a2a8f06039c6e432be430c10035e38ccb9eb60544e03d16b8",
+    "benchmarks/naturebench_active/scoring/terminal_resp.py": "4fe575b3dedb0dff3c2840e18042c787d642e60204ab547d8b690e20dcff95d1",
+    "benchmarks/naturebench_active/submission.py": "9a6b40e3f49ac38d236e58627be451fb73576c06528f44790f3c07b296b7494b",
+    "maintenance/naturebench/preparation/__init__.py": "735820d6c6abe054a97919019899ba1c68d1b60a7ca5b3a49ba95d743236ef10",
+    "maintenance/naturebench/preparation/assets.py": "67a6eac4908b84e12222e8e496e7b61ab463bb49d9745b0d6c0d437511b40624",
+    "maintenance/naturebench/preparation/build.py": "4f5c83fc7b0316b749fb22b69972c583b2461e5559877fc6eed81612a67a0a42",
+    "maintenance/naturebench/preparation/catalog.py": "1a1c72a656e0d828b25a7a440fac610ce370b444b3dddf0a86a9b1ea92eeb3f1",
+    "maintenance/naturebench/preparation/curation.py": "e5557b4d326275123538dcf04210a02377174fde7e27d9af3d71aa6d57629938",
+    "maintenance/naturebench/preparation/documents.py": "35ce877dcc3ab0c72cea67d1e18df4d35d5d1422c1922f71e41e389d976987f6",
+    "maintenance/naturebench/preparation/noncoding.py": "1490b29777004b5187e30f0bec2b173c08d9e565337a9661ecbb86c7b59d3c2b",
+    "maintenance/naturebench/preparation/notes.py": "572c8a93e5b9a95ed8806868e855fb9c27bc2a0b549ed1aec1332410718f6854",
+    "maintenance/naturebench/preparation/pending.py": "c46b49fe75e9bde80e54aaade729b302d684abed7ba5c7fa67a6d8cd274007e8",
+    "maintenance/naturebench/preparation/pending_generation.py": "15eb8f96f91cae7c3003d2d0d92591aac9f049b3b0aeb6e6e115d76b71b5649a",
+    "maintenance/naturebench/preparation/pending_protocol.py": "0bafa4747556f22992e177cccf13d9061954d9a3f3dac5b164ddeaa3f4e57fab",
+    "maintenance/naturebench/preparation/records.py": "3e27565b4a23836496bbbb0a0d752a3ef42373a56e030a10376ad46e6f4b947f",
+    "maintenance/naturebench/preparation/structured.py": "60441f31896b9d6f426fd20f15a1194fd6baec4d13672135906fac6c0f20a033",
+    "maintenance/naturebench/preparation/tabular.py": "5121edc79e9c797fa1656c09182e09df9d48a3a84d1649db744bd52b6a5c6ddd"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained training evidence record, all defined supervision released together",
+    "validation": "retain official Val; pocket and RNA generation use fixed seed 42 9:1 holdouts; otherwise Task selects acquired rows",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "pool_curation": "preserve native row membership and duplicates; only documented missing files and RNA family preprocessing",
+    "grouping": "one retained native row; no extra identity or time holdout",
+    "budget_denominator": "N after the instructed train/Val split; Val is outside N",
+    "test_labels": "never decoded during preparation; only frozen terminal scorer reads native Test truth"
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "internal_validation_instances": [
+    "nrc"
+  ],
+  "source_exclusions": {
+    "missing_native_file": 2343
+  },
+  "source_exclusions_sha256": "a1e0188ae7f09653d6398ff9b50077fe58cad7aa2c8298962c13cd4fe20f8eca",
+  "native_train_pool": 69794,
+  "reference_files": {},
+  "preparation_batch": "20261018-pending-Lh",
+  "review_decision": "nb_pending_tasks_Lh.md: per-task 处理意见",
+  "validation_metric": "native",
+  "validation_origin": "official"
+}

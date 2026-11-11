@@ -1,0 +1,58 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.DS_Store
+.claude/
+.env
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Run records, freezes and readiness reports are local to each machine.
+/runs/
+/provenance/
+
+# Credentials never belong in the repository.
+credentials*.json
+
+# RESP source payloads stay in the dataset.
+/tasks/resp/**/problem/data
+/tasks/resp/**/evaluation/ground_truth
+
+# ---------------------------------------------------------------------------
+# Development-only material: kept on disk in a development checkout, not released.
+# Model evaluation needs none of it.
+# ---------------------------------------------------------------------------
+
+# Platform regression tests (offline acceptance suite and fixtures).
+/tests/
+
+# Dataset preparation, audits, diagnostics and smoke scripts.
+/maintenance/*
+!/maintenance/__init__.py
+!/maintenance/stress.py
+!/maintenance/task48*.py
+!/maintenance/medrsee/
+/maintenance/medrsee/*
+!/maintenance/medrsee/__init__.py
+!/maintenance/medrsee/prepare_test_inputs.py
+!/maintenance/naturebench/
+/maintenance/naturebench/*
+!/maintenance/naturebench/__init__.py
+!/maintenance/naturebench/terminal_queue.py
+
+# Development, validation and stress configurations (the six task-group configs are released).
+/configs/acceptance_*.json
+/configs/local.json
+/configs/medrsee_v4_*.json
+/configs/*_validation.json
+/configs/parallel16.json
+/configs/stress24.json
+
+# Internal records and task material outside task_48.
+/docs/experiment_records.md
+/docs/performance_boundaries.md
+/tasks/naturebench-active/isolated-variants/
+/tasks/naturebench-active/s41592-023-02148-8/
+/tasks/resp/README.md

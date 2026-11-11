@@ -1,0 +1,49 @@
+{
+  "api_max_retries": 3,
+  "api_request_timeout_seconds": 600,
+  "budget": {
+    "api_calls": null,
+    "api_tokens": null,
+    "solve_seconds": 14400,
+    "wall_seconds": 14400
+  },
+  "cpu_cores_per_slot": 4,
+  "credentials": "/path/to/credentials.json",
+  "data_root": "/path/to/rsi4s-bound/packages",
+  "evaluation_phases": {
+    "policy": "shared_deadline_v1"
+  },
+  "experiment_scope": "LIFE_03: all eight native Test instances; one deduplicated human evidence pool shared across species, 10% initial labels and a shared additional 50% query budget. Task/Meta research under one 14400-second research clock. Test only after final selection and research closure.",
+  "final_inference_seconds": null,
+  "freeze_manifest": "provenance/releases/naturebench_plm_interact_4h.json",
+  "gpu_slots_per_gpu": 2,
+  "gpu_wait_seconds": 600,
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "internal_validation": {
+    "policy": "agent_selected_v1"
+  },
+  "max_gpu_queue_seconds": 3600,
+  "max_output_tokens": "model_max",
+  "meta_calls": null,
+  "meta_selection_seconds": null,
+  "mode": "coevolve",
+  "model": "deepseek-flash",
+  "naturebench_active": true,
+  "naturebench_source_root": "/path/to/rsi4s-bound/sources",
+  "python": "/path/to/envs/science/bin/python",
+  "reuse_artifacts": true,
+  "rounds": 40,
+  "task_calls": null,
+  "tasks": [
+    "LIFE_03"
+  ]
+}

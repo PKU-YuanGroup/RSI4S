@@ -1,0 +1,28 @@
+{
+  "task_id": "MED_02",
+  "benchmark": "medrsee",
+  "name": "BraTS2021 Four-Modality Brain Tumor Segmentation (custom1000_251_v1)",
+  "split_version": "custom1000_251_v1",
+  "counts": {
+    "train_pool": 1000,
+    "D0": 100,
+    "Q": 900,
+    "annotation_budget": 500,
+    "V": 0,
+    "T": 251
+  },
+  "score_reference_note": "sota_score=1 is a unit reference, not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_02",
+      "metrics": [
+        {
+          "name": "region_dice",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

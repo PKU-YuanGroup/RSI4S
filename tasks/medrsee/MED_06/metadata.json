@@ -1,0 +1,27 @@
+{
+  "task_id": "MED_06",
+  "benchmark": "medrsee",
+  "name": "CrossMoDA ceT1 肿瘤与耳蜗分割",
+  "counts": {
+    "train_pool": 95,
+    "D0": 9,
+    "Q": 86,
+    "annotation_budget": 47,
+    "V": 0,
+    "T": 10
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_06",
+      "metrics": [
+        {
+          "name": "structure_dice",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

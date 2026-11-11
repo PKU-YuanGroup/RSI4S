@@ -1,0 +1,7 @@
+# Generated data payloads and organizer labels are local; regenerate with prepare.py.
+*.sqlite
+*.sqlite-*
+**/organizer
+**/problem/data
+**/problem/reference
+*.building/

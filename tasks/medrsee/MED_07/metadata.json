@@ -1,0 +1,27 @@
+{
+  "task_id": "MED_07",
+  "benchmark": "medrsee",
+  "name": "VerSe19 椎体身份分割",
+  "counts": {
+    "train_pool": 80,
+    "D0": 8,
+    "Q": 72,
+    "annotation_budget": 40,
+    "V": 40,
+    "T": 40
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_07",
+      "metrics": [
+        {
+          "name": "structure_dice",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}

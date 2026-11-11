@@ -1,0 +1,5 @@
+Task0 (T00) has produced a valid evaluated result: {artifact}.
+
+The research can now advance to Meta0 (M00). Save concise handoff notes with the measured result, artifact paths, known limitations and useful next experiments, then return your final response to hand off. Meta and successor Tasks can use the saved evidence and continue the unfinished research.
+
+The remaining research time is shared with all subsequent stages. You can call get_time() to see elapsed time and the shared time remaining.

@@ -1,0 +1,257 @@
+{
+  "format": "naturebench-active-v2",
+  "task_id": "CHEM_05",
+  "seed": 42,
+  "train_pool": 86515,
+  "D0": 8651,
+  "Q": 77864,
+  "annotation_budget": 43257,
+  "official_validation": 8469,
+  "T": 43583,
+  "counts": {
+    "D0": 8651,
+    "Q": 77864,
+    "T": 43583,
+    "V": 8469
+  },
+  "instances": {
+    "buchwald_hartwig": {
+      "D0": 277,
+      "Q": 2490,
+      "T": 1188
+    },
+    "esol": {
+      "D0": 89,
+      "Q": 800,
+      "T": 114,
+      "V": 111
+    },
+    "fluorescence": {
+      "D0": 2144,
+      "Q": 19302,
+      "T": 27217,
+      "V": 5362
+    },
+    "freesolv": {
+      "D0": 51,
+      "Q": 462,
+      "T": 65,
+      "V": 64
+    },
+    "lipophilicity": {
+      "D0": 336,
+      "Q": 3024,
+      "T": 420,
+      "V": 420
+    },
+    "stability": {
+      "D0": 5351,
+      "Q": 48157,
+      "T": 12851,
+      "V": 2512
+    },
+    "suzuki": {
+      "D0": 403,
+      "Q": 3629,
+      "T": 1728
+    }
+  },
+  "selected_instances": [
+    "buchwald_hartwig",
+    "esol",
+    "fluorescence",
+    "freesolv",
+    "lipophilicity",
+    "stability",
+    "suzuki"
+  ],
+  "deferred_instances": [],
+  "complete_native_task": true,
+  "membership_sha256": "bde7dc1306da7e61d27e7a384bbe2ff17e0cc7a580dd812355cf9752b352e0b6",
+  "source_sha256": "3086d89cec9c659e6671a49b9e7e30b7bfe83469d9954551cc3029436bead29b",
+  "reference_sha256": "2eff79a507252fb18b6a42906ad57cc6d19d7bdc3aa2b100e0a05404804eed5b",
+  "public_sha256": "5f9212aa7ff5944ed8428369c6284f8f99ab9b128446095b977e2bb778305df9",
+  "code_sha256": {
+    "__init__.py": "61d1310e688a5241046defea50fecb5392b19e04c8e9ad7c7f3ce4455f05efe2",
+    "attachments.py": "4c2c5120bb35211d7a23560087e6e5a3d46a8a07696aa30169f819a0cb7b2c0a",
+    "audit.py": "bcbf14c48025209e28a9c46512588c4f24457616163586b17bcdf8bee7fdffd2",
+    "audit_additional.py": "025913afb3fdae7fa405fd0a71e88013466a62b9205a47ed1d81a98f72764055",
+    "audit_labels.py": "87a68df5f4419fe2bec140a4c1f443c2e656e1f333f1ff99a61a3db3219c476b",
+    "audit_mof_payloads.py": "36a1ef2d98593215a7ea6311c9648b487077b09dbdbd7eb24b237aa171e13318",
+    "audit_structures.py": "0fc24f2f42e34485b9695abbea8dea836468fb33a15beefe4ad9f5ec590c9809",
+    "curation.py": "3c025878cbceac8c6fb6d80cfdebdbae5f8af5e41825514a28a8661fb3739df8",
+    "documents.py": "41eec976da76db6ac81cab63a8c944081aa0b3cd204ef329d49a26e8c26dfed8",
+    "evidence.py": "43d207f88977843f8565bd8ae3baf1c3db70a02b874dc9b0f6397cee4b01e967",
+    "extended.py": "6d518a2095a0e618d6f0be96b5fc0c3e65924fa4199ccf05c554c58b55e5d569",
+    "prepare.py": "9a890ea91240321f8a340c1f98a77e373fd7fa06e16cbc28bada418205997c4a",
+    "smoke.py": "b8dd1f038136a6c046317f3722ce96457cb7488ffa98f3598acfc9818df0e953",
+    "sources.py": "35b342727145ad6242faa2b21a38699fed0fa654eafb4da1a111565d5e95b3ba",
+    "verify.py": "a29c7ffbbb3f9842b0c180ca1becb1178775bdf7c1f25106981d641f6dd3e828",
+    "verify_curation.py": "aa2c93b9ddaa9c884807427c25c09442a0f4dcbddfd8610a586fd221350f8dca"
+  },
+  "protocol": {
+    "initial_fraction": "floor(N/10)",
+    "additional_fraction": "floor(N/2)",
+    "initial_selection": "seed 42 SHA-256 order; per-instance largest-remainder allocation; no label stratification",
+    "query_unit": "one retained native record, including its defined target vector; duplicate train rows do not add units",
+    "validation": "native V retained except documented Test overlaps and unresolved within-V target conflicts; otherwise Agent selects acquired labels",
+    "test": "private during research; only final frozen inference may read T",
+    "wall_seconds": 14400,
+    "expert": "organizer native labels; no live expert service",
+    "zeolite_split": null,
+    "budget_denominator": "retained training pool N, fixed before D0 sampling; excluded and duplicate rows add no quota",
+    "pool_curation": "host input-identity checks and exact development-target consistency; no Test labels",
+    "repeated_split": 0
+  },
+  "runtime_integration": "prepared data package; original NatureBench runner is not an active-evidence runner",
+  "curation": {
+    "policy": "holdout-first-exact-dedup-ambiguous-quarantine-v1",
+    "instances": {
+      "buchwald_hartwig": {
+        "native": {
+          "T": 1188,
+          "train": 2767
+        },
+        "retained": {
+          "T": 1188,
+          "train": 2767
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "esol": {
+        "native": {
+          "T": 114,
+          "V": 112,
+          "train": 902
+        },
+        "retained": {
+          "T": 114,
+          "V": 111,
+          "train": 889
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 6,
+            "duplicate_training_record": 5,
+            "overlaps_test_group": 1,
+            "overlaps_validation_group": 1
+          },
+          "V": {
+            "overlaps_test_group": 1
+          }
+        },
+        "duplicate_groups": 8,
+        "conflicting_development_groups": 3
+      },
+      "fluorescence": {
+        "native": {
+          "T": 27217,
+          "V": 5362,
+          "train": 21446
+        },
+        "retained": {
+          "T": 27217,
+          "V": 5362,
+          "train": 21446
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "freesolv": {
+        "native": {
+          "T": 65,
+          "V": 64,
+          "train": 513
+        },
+        "retained": {
+          "T": 65,
+          "V": 64,
+          "train": 513
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "lipophilicity": {
+        "native": {
+          "T": 420,
+          "V": 420,
+          "train": 3360
+        },
+        "retained": {
+          "T": 420,
+          "V": 420,
+          "train": 3360
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      },
+      "stability": {
+        "native": {
+          "T": 12851,
+          "V": 2512,
+          "train": 53614
+        },
+        "retained": {
+          "T": 12851,
+          "V": 2512,
+          "train": 53508
+        },
+        "excluded": {
+          "train": {
+            "ambiguous_development_targets": 74,
+            "duplicate_training_record": 1,
+            "overlaps_test_group": 31
+          },
+          "V": {}
+        },
+        "duplicate_groups": 38,
+        "conflicting_development_groups": 37
+      },
+      "suzuki": {
+        "native": {
+          "T": 1728,
+          "train": 4032
+        },
+        "retained": {
+          "T": 1728,
+          "train": 4032
+        },
+        "excluded": {
+          "train": {},
+          "V": {}
+        },
+        "duplicate_groups": 0,
+        "conflicting_development_groups": 0
+      }
+    },
+    "test_labels_read": false,
+    "test_members_and_order_preserved": true,
+    "target_aggregation": false,
+    "unresolved_groups": "quarantined; no claim of independent measurements"
+  },
+  "curation_sha256": "bb88b1e4ffac417f1382b1869535aacdb93e76ecd1d24a9da753f1dbdac32bd8",
+  "native_train_pool": 86634,
+  "native_validation": 8470,
+  "internal_validation_instances": [
+    "buchwald_hartwig",
+    "suzuki"
+  ],
+  "preparation_batch": "20261011-second-batch"
+}

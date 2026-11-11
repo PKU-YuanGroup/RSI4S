@@ -1,0 +1,27 @@
+{
+  "task_id": "MED_08",
+  "benchmark": "medrsee",
+  "name": "BUS-BRA 乳腺超声病灶分割",
+  "counts": {
+    "train_pool": 1499,
+    "D0": 149,
+    "Q": 1350,
+    "annotation_budget": 749,
+    "V": 0,
+    "T": 376
+  },
+  "score_reference_note": "sota_score=1 is only a unit reference for monotonic RSI ranking; not a SOTA claim",
+  "performance_entries": [
+    {
+      "dataset_name": "MED_08",
+      "metrics": [
+        {
+          "name": "patient_mean_dice",
+          "is_primary": true,
+          "metric_direction": "higher_is_better",
+          "sota_score": 1
+        }
+      ]
+    }
+  ]
+}
