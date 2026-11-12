@@ -22,9 +22,11 @@ from rsi.api_stream import ChatStream, StreamProtocolError
 # sometimes in an SSE `data:` body on a non-stream 400. Every other 400 stays non-retryable.
 TRANSIENT_PROVIDER_CODES = frozenset({'InvalidParameter.PreemptionPlan'})
 # Wording of in-body provider errors (often HTTP 200, after the stream began) that names a
-# transient serving condition, so the same request may succeed on another attempt.
+# transient serving condition, so the same request may succeed on another attempt. OpenAI-compatible
+# gateways (new-api) report a dropped upstream stream as "The upstream stream ended before the response
+# was complete." with HTTP 200: a transport interruption like IncompleteRead.
 TRANSIENT_PROVIDER_MESSAGES = ('timeout', 'timed out', 'overload', 'rate limit', 'try again',
-                               'temporarily unavailable')
+                               'temporarily unavailable', 'stream ended before the response was complete')
 
 
 def provider_error(raw):
@@ -257,7 +259,9 @@ class APIClient:
             rows = payload.get('data') if isinstance(payload, dict) else None
             if not isinstance(rows, list):
                 raise ValueError('Model metadata requires a data list')
-            match = next((row for row in rows if isinstance(row, dict) and row.get('id') == self.model), None)
+            # Google's OpenAI-compatible endpoint lists models as models/<id>; requests use the bare id.
+            match = next((row for row in rows if isinstance(row, dict) and row.get('id') in
+                          (self.model, 'models/' + self.model)), None)
             maximum = match.get('max_output_tokens') if match else None
             from rsi.providers import documented_limits
             documented = documented_limits(self.model) if match else None
@@ -507,6 +511,16 @@ class APIClient:
             # Always-on provider reasoning can consume the whole review limit and
             # leave empty content: that is truncation, not a transport failure.
             truncated = purpose == 'complete_task_history' and choice.get('finish_reason') == 'length'
+            from rsi.providers import provider_block
+            block = provider_block(self.provider_settings, content)
+            if block:
+                # A contract-declared refusal returned as answer text (see blocked_response): retried. The raw
+                # response is already recorded; the refusal text never reaches the Agent.
+                self.journal.add('api_provider_block', call=call, role=role, version=version, block=block,
+                                 finish_reason=choice.get('finish_reason'),
+                                 content_characters=len(content) if isinstance(content, str) else None)
+                raise APIRequestError(f'Provider safety filter blocked the response ({block}); '
+                                      'not delivered to the Agent', retryable=True, http_status=status)
             if not truncated and (not isinstance(content, str) or not content.strip()):
                 raise APIRequestError('API response has no nonempty text content', retryable=True, http_status=status)
             self.journal.add('api_end', call=call, role=role, version=version,

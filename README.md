@@ -29,7 +29,7 @@ The batch runner always runs the matched pair L3 + L4 for the selected tasks; L5
   python3.11 -m venv /envs/rsi4s && /envs/rsi4s/bin/pip install -r requirements.txt
   ```
 
-  The file adds the CUDA 12.1 wheel indexes for `torch`, `torchvision` and `dgl`. `prepare` and the simulators refuse an interpreter whose packages differ from `requirements.txt` in any way, extra packages included, because the environment defines which libraries the agents can use.
+  The file adds the CUDA 12.1 wheel indexes for `torch`, `torchvision` and `dgl`. `prepare` and the simulators refuse an interpreter whose packages differ from `requirements.txt` in any way, extra packages included, because the environment defines which libraries the agents can use. Install nothing else into it; use another environment for your own tools.
 - **A model API.** Supported identifiers (OpenAI-compatible chat completions with streaming):
 
   | `--model` | Provider |
@@ -39,20 +39,23 @@ The batch runner always runs the matched pair L3 + L4 for the selected tasks; L5
   | `qwen3.8-flash` | Alibaba Cloud Bailian |
   | `ZHIPU/GLM-5.3-Flash` | Alibaba Cloud Bailian |
   | `mimo-v2.6-pro` | Xiaomi MiMo |
+  | `gemini-4-argon` | Google Gemini API (OpenAI-compatible endpoint) or a compatible gateway |
+  | `kimi-k3.1-pro` | Moonshot Kimi API |
+
+  The `gemini-4-argon` and `kimi-k3.1-pro` request settings follow the providers' documentation; the Gemini results below were obtained through an OpenAI-compatible gateway, and neither setting has been checked against the official endpoints.
 
   Credentials are a JSON file kept outside the repository: `{"api_key": "sk-...", "base_url": "https://.../v1"}` (or `"api_key_file": "key.txt"` instead of `api_key`).
 
 ## 1. Download and unpack the data
 
-The dataset is [`purshow/RSI4S-task48`](https://modelscope.cn/datasets/purshow/RSI4S-task48) on ModelScope (≈212 GB compressed, 317 GB unpacked). If access is restricted, log in first: `python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`.
+The dataset is [`purshow/RSI4S-task48`](https://modelscope.cn/datasets/purshow/RSI4S-task48) on ModelScope (≈212 GB compressed, 317 GB unpacked). `rsi4s` includes `modelscope`, so the same interpreter downloads the data. If access is restricted, log in first: `/envs/rsi4s/bin/python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`.
 
 ```bash
-pip install -U modelscope
-python - <<'PY'
+/envs/rsi4s/bin/python - <<'PY'
 from modelscope.hub.snapshot_download import dataset_snapshot_download
 dataset_snapshot_download(dataset_id="purshow/RSI4S-task48", local_dir="./task48_download", max_workers=4)
 PY
-python task48_download/tools/unpack.py --dest /data/rsi4s        # -> /data/rsi4s/rsi4s_task48/
+/envs/rsi4s/bin/python task48_download/tools/unpack.py --dest /data/rsi4s   # -> /data/rsi4s/rsi4s_task48/
 ```
 
 To fetch only some tasks, pass `allow_patterns=["*.md", "*.json", "SHA256SUMS", "files.jsonl.gz", "tools/*", "archives/LIFE_06.tar.gz.part*"]` to `dataset_snapshot_download` and `--tasks LIFE_06` to `unpack.py`. `unpack.py` (Python ≥ 3.10, standard library only) verifies every archive part and every extracted file. The dataset's `TASKS.md` lists all 48 tasks.

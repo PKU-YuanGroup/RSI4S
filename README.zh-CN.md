@@ -29,7 +29,7 @@
   python3.11 -m venv /envs/rsi4s && /envs/rsi4s/bin/pip install -r requirements.txt
   ```
 
-  文件里已加上 `torch`、`torchvision`、`dgl` 的 CUDA 12.1 下载源。环境决定了 Agent 能用哪些库，所以只要解释器里的包与 `requirements.txt` 有任何不同（包括多装的包），`prepare` 和模拟器都会拒绝运行。
+  文件里已加上 `torch`、`torchvision`、`dgl` 的 CUDA 12.1 下载源。环境决定了 Agent 能用哪些库，所以只要解释器里的包与 `requirements.txt` 有任何不同（包括多装的包），`prepare` 和模拟器都会拒绝运行。不要往里另装其他包，自己的工具请用别的环境。
 - **模型 API。** 支持的模型（OpenAI 兼容、流式的 chat completions）：
 
   | `--model` | 提供方 |
@@ -39,20 +39,23 @@
   | `qwen3.8-flash` | 阿里云百炼 |
   | `ZHIPU/GLM-5.3-Flash` | 阿里云百炼 |
   | `mimo-v2.6-pro` | 小米 MiMo |
+  | `gemini-4-argon` | Google Gemini API（OpenAI 兼容接口）或兼容网关 |
+  | `kimi-k3.1-pro` | 月之暗面 Kimi API |
+
+  `gemini-4-argon` 和 `kimi-k3.1-pro` 的请求设置依据各自官方文档；下文的 Gemini 结果是经 OpenAI 兼容网关得到的，这两个设置都还没有在官方接口上实测。
 
   凭据是放在仓库外的 JSON 文件：`{"api_key": "sk-...", "base_url": "https://.../v1"}`（也可用 `"api_key_file": "key.txt"` 代替 `api_key`）。
 
 ## 1. 下载并解压数据
 
-数据集为 ModelScope 上的 [`purshow/RSI4S-task48`](https://modelscope.cn/datasets/purshow/RSI4S-task48)（压缩约 212 GB，解压后 317 GB）。如需登录：`python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`。
+数据集为 ModelScope 上的 [`purshow/RSI4S-task48`](https://modelscope.cn/datasets/purshow/RSI4S-task48)（压缩约 212 GB，解压后 317 GB）。`rsi4s` 已包含 `modelscope`，下载也用同一个解释器。如需登录：`/envs/rsi4s/bin/python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`。
 
 ```bash
-pip install -U modelscope
-python - <<'PY'
+/envs/rsi4s/bin/python - <<'PY'
 from modelscope.hub.snapshot_download import dataset_snapshot_download
 dataset_snapshot_download(dataset_id="purshow/RSI4S-task48", local_dir="./task48_download", max_workers=4)
 PY
-python task48_download/tools/unpack.py --dest /data/rsi4s        # 输出 /data/rsi4s/rsi4s_task48/
+/envs/rsi4s/bin/python task48_download/tools/unpack.py --dest /data/rsi4s   # 输出 /data/rsi4s/rsi4s_task48/
 ```
 
 只要部分任务时，给 `dataset_snapshot_download` 加 `allow_patterns=["*.md", "*.json", "SHA256SUMS", "files.jsonl.gz", "tools/*", "archives/LIFE_06.tar.gz.part*"]`，`unpack.py` 加 `--tasks LIFE_06`。`unpack.py` 只用标准库（Python ≥ 3.10），会校验每个分卷和每个解压出的文件。数据集的 `TASKS.md` 列出全部 48 个任务。
