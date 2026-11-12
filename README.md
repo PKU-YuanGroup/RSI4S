@@ -191,4 +191,4 @@ Beyond the primary metrics, these checks cover synthetic difficulty (SCScore, RA
 
 ## License and acknowledgments
 
-RSI4S-Bench builds on NatureBench, HyperAgents and the scientific datasets listed in [NOTICE](NOTICE) and [upstream.json](upstream.json). Code: [LICENSE](LICENSE) and [HyperAgents license](HYPERAGENTS-LICENSE.md). Each task's source data keeps its upstream terms.
+RSI4S-Bench builds on [NatureBench](https://github.com/FrontisAI/NatureBench), [HyperAgents](https://github.com/facebookresearch/HyperAgents) and the scientific datasets listed in [NOTICE](NOTICE) and [upstream.json](upstream.json). Code: [LICENSE](LICENSE) and [HyperAgents license](HYPERAGENTS-LICENSE.md). Each task's source data keeps its upstream terms.

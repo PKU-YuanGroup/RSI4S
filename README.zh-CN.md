@@ -191,4 +191,4 @@ L5 在 L4 的基础上继承前序任务蒸馏出的 Agent 与经验。表中只
 
 ## 许可与致谢
 
-RSI4S-Bench 基于 NatureBench、HyperAgents 以及 [NOTICE](NOTICE) 和 [upstream.json](upstream.json) 中列出的科学数据集。代码许可见 [LICENSE](LICENSE) 与 [HyperAgents 许可证](HYPERAGENTS-LICENSE.md)。各任务的源数据遵循其上游许可。
+RSI4S-Bench 基于 [NatureBench](https://github.com/FrontisAI/NatureBench)、[HyperAgents](https://github.com/facebookresearch/HyperAgents) 以及 [NOTICE](NOTICE) 和 [upstream.json](upstream.json) 中列出的科学数据集。代码许可见 [LICENSE](LICENSE) 与 [HyperAgents 许可证](HYPERAGENTS-LICENSE.md)。各任务的源数据遵循其上游许可。
