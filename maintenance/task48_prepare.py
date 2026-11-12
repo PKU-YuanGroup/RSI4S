@@ -82,8 +82,10 @@ def protocol_check(config_path, tasks, evidence, check_directory):
     and the group's environment test modules also run. Without it the check is data/environment readiness.
     """
     from run_rsi import load_config, preflight
+    from rsi.environment import verify as verify_environment
     from rsi.harness import release
     config = load_config(config_path)
+    environment = verify_environment(sys.executable)  # every group runs in the one rsi4s environment
     before = code_hashes()
     if evidence is not None:
         baseline = json.loads(Path(evidence).read_text())
@@ -118,7 +120,7 @@ def protocol_check(config_path, tasks, evidence, check_directory):
     report = dict(success=returncode==0 and code_hashes()==before, code_hashes=before,
                   full_offline_evidence=None if evidence is None else str(Path(evidence).resolve()),
                   full_offline_sha256=None if evidence is None else sha(evidence),
-                  python=sys.executable,python_version=platform.python_version(),
+                  python=sys.executable,python_version=platform.python_version(),environment=environment,
                   test_modules=modules, readiness=readiness, model_api_called=False)
     if config.get('naturebench_active'):
         from benchmarks.naturebench_active.release import protocol_settings

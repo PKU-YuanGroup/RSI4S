@@ -2,12 +2,7 @@
 """Bind the unpacked RSI4S task_48 dataset to this checkout. Python 3.10+, standard library only.
 
   python tools/setup_data.py --bundle /data/rsi4s/rsi4s_task48 --out /data/rsi4s/bound \\
-      --credentials ~/.config/rsi4s/credentials.json \\
-      --python-science   /envs/science/bin/python \\
-      --python-pending   /envs/naturebench-pending/bin/python \\
-      --python-medrsee   /envs/medrsee/bin/python \\
-      --python-mat01     /envs/simulator-mat01/bin/python \\
-      --python-chem01    /envs/simulator-chem01/bin/python
+      --credentials ~/.config/rsi4s/credentials.json --python /envs/rsi4s/bin/python
 
 The dataset itself is never modified and nothing large is copied. --out (new or empty) receives:
   packages/<TASK>/  task packages: links into the dataset, except organizer/source_root.txt -> out/sources
@@ -15,8 +10,8 @@ The dataset itself is never modified and nothing large is copied. --out (new or 
   medrsee_home/     MEDRSEE_HOME (data/medrsee -> the dataset's medrsee-v4 directory)
   state/            writable caches (ENV_02 prepared Test inputs)
   env.sh, setup_report.json
-Then every group config listed in configs/task_48.json is updated in place: data roots, interpreters,
-credentials and the simulator environments. Rerunning with other paths updates the same keys.
+Then every group config listed in configs/task_48.json is updated in place: data roots, the rsi4s interpreter
+(every group and both simulators use it), credentials and the simulator data. Rerunning updates the same keys.
 """
 import argparse
 import json
@@ -27,12 +22,9 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from benchmarks.task_names import ORIGINAL_IDS  # noqa: E402  (standard library only)
+from rsi.environment import mismatches  # noqa: E402  (standard library only)
 
-# Interpreter per task group (see the dataset's environments/ for the recorded package versions).
-GROUP_PYTHON = {'naturebench_active': 'science', 'naturebench_pending': 'pending', 'naturebench_plm_interact': 'science',
-                'medrsee': 'medrsee', 'simulator': 'medrsee', 'resp': 'science'}
-SIMULATOR_PYTHON = {'MAT_01': 'mat01', 'CHEM_01': 'chem01'}
-INTERPRETERS = ('science', 'pending', 'medrsee', 'mat01', 'chem01')
+SIMULATORS = ('MAT_01', 'CHEM_01')
 
 
 def die(message):
@@ -70,8 +62,7 @@ def main():
     parser.add_argument('--bundle', type=Path, required=True, help='the unpacked rsi4s_task48 directory')
     parser.add_argument('--out', type=Path, required=True, help='new (or empty) directory for the binding')
     parser.add_argument('--credentials', type=Path, help='model API credentials file (JSON or CSV)')
-    for name in INTERPRETERS:
-        parser.add_argument(f'--python-{name}', help=f'interpreter of the {name} environment')
+    parser.add_argument('--python', required=True, help='interpreter of the rsi4s environment (requirements.txt)')
     args = parser.parse_args()
 
     bundle = args.bundle.expanduser().resolve()
@@ -88,11 +79,14 @@ def main():
         credentials = args.credentials.expanduser().resolve()
         if not credentials.is_file():
             die(f'--credentials: {credentials} does not exist')
-    pythons = {name: interpreter(getattr(args, f'python_{name}'), f'--python-{name}')
-               for name in INTERPRETERS if getattr(args, f'python_{name}')}
+    python = interpreter(args.python, '--python')
 
     out.mkdir(parents=True, exist_ok=True)
-    report = dict(bundle=str(bundle), out=str(out), packages=[], sources=[], warnings=[])
+    report = dict(bundle=str(bundle), out=str(out), python=python, packages=[], sources=[], warnings=[])
+    problems = mismatches(python)
+    if problems:
+        report['warnings'].append(f'--python does not match requirements.txt ({len(problems)} differences, e.g. '
+                                  f'{"; ".join(problems[:3])}); prepare will refuse it until it does')
     packages, sources = out / 'packages', out / 'sources'
     packages.mkdir()
     sources.mkdir()
@@ -114,7 +108,7 @@ def main():
     else:
         report['warnings'].append('No medrsee-v4/ in the dataset: MedRSEE tasks are not available')
     (out / 'state/medrsee-test-input-cache').mkdir(parents=True)
-    simulators = {task: bundle / 'simulators' / task for task in SIMULATOR_PYTHON}
+    simulators = {task: bundle / 'simulators' / task for task in SIMULATORS}
     for task, path in simulators.items():
         if not path.is_dir():
             report['warnings'].append(f'No simulators/{task} in the dataset: {task} is not available')
@@ -135,16 +129,8 @@ def main():
         if 'simulator_environments' in config:
             for task, environment in config['simulator_environments'].items():
                 environment['data_root'] = str(simulators[task].resolve())
-                if SIMULATOR_PYTHON[task] in pythons:
-                    environment['python'] = pythons[SIMULATOR_PYTHON[task]]
-                else:
-                    report['warnings'].append(f'--python-{SIMULATOR_PYTHON[task]} not given: {task} keeps '
-                                              f'{environment["python"]}')
-        role = GROUP_PYTHON[group['name']]
-        if role in pythons:
-            config['python'] = pythons[role]
-        else:
-            report['warnings'].append(f'--python-{role} not given: {group["config"]} keeps {config["python"]}')
+                environment['python'] = python
+        config['python'] = python
         if credentials:
             config['credentials'] = str(credentials)
         path.write_text(json.dumps(config, ensure_ascii=False, indent=2) + '\n')

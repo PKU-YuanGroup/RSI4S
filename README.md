@@ -22,27 +22,14 @@ The batch runner always runs the matched pair L3 + L4 for the selected tasks; L5
 ## Requirements
 
 - **Linux x86_64, run as root.** Agent code runs in a sandbox that drops to a dedicated UID and applies Landlock (ABI ≥ 3) and seccomp (`libseccomp.so.2`).
-- **Fixed hardware layout** (L3/L4/L5 with full scoring): 8 NVIDIA GPUs (IDs 0–7) with 2 task slots each, and **two CPU sockets with at least 32 physical cores each** (16 slots × 4 cores). The layout is fixed so that every study runs with the same per-job resources and the same contention between jobs; `prepare` refuses other CPU layouts. The research budget is wall-clock time, so the GPU and CPU models matter too: the reference machine has 8 × NVIDIA A800-SXM4-80GB and 2 × Intel Xeon Platinum 8358P. Compare results only between equivalent machines.
-- **Python 3.11** environments built from the dataset's `environments/*.requirements.txt`:
-
-  | Environment | Requirements file | Used by |
-  | --- | --- | --- |
-  | `science` | `science` | NatureBench Active, PLM-interact (`LIFE_03`), RESP (`LIFE_01`) |
-  | `pending` | `naturebench-pending-lh-v1` | NatureBench group with extra dependencies |
-  | `medrsee` | `medrsee-v4` | MedRSEE tasks, the simulator host, and the batch runner itself |
-  | `mat01` | `data-prep-xray-v1` | `MAT_01` X-ray diffractometer simulator |
-  | `chem01` | `data-prep-experiments-v1` | `CHEM_01` ChemGym simulator |
-
-  Build every environment from a Python 3.11.16 interpreter. The files pin CUDA 12.1 builds of `torch`, `torchvision` and `dgl`, which are not on PyPI, and some list pip and setuptools twice, so drop the packaging-tool lines and add the two wheel indexes:
+- **One Python environment, `rsi4s`** (Python 3.11.16), from [`requirements.txt`](requirements.txt). Every task group, both simulators and the batch runner use it:
 
   ```bash
-  python3.11 -m venv /envs/mat01
-  grep -vE '^(pip|setuptools|wheel)==' data-prep-xray-v1.requirements.txt > req.txt
-  /envs/mat01/bin/pip install -r req.txt \
-      --extra-index-url https://download.pytorch.org/whl/cu121 -f https://data.dgl.ai/wheels/cu121/repo.html
+  git clone https://github.com/PKU-YuanGroup/RSI4S.git && cd RSI4S
+  python3.11 -m venv /envs/rsi4s && /envs/rsi4s/bin/pip install -r requirements.txt
   ```
 
-  The two simulator environments are checked against these recorded package versions before every episode.
+  The file adds the CUDA 12.1 wheel indexes for `torch`, `torchvision` and `dgl`. `prepare` and the simulators refuse an interpreter whose packages differ from `requirements.txt` in any way, extra packages included, because the environment defines which libraries the agents can use.
 - **A model API.** Supported identifiers (OpenAI-compatible chat completions with streaming):
 
   | `--model` | Provider |
@@ -68,30 +55,28 @@ PY
 python task48_download/tools/unpack.py --dest /data/rsi4s        # -> /data/rsi4s/rsi4s_task48/
 ```
 
-To fetch only some tasks, pass `allow_patterns=["*.md", "*.json", "SHA256SUMS", "manifest/*", "environments/*", "tools/*", "archives/LIFE_06.tar.gz.part*"]` to `dataset_snapshot_download` and `--tasks LIFE_06` to `unpack.py`. `unpack.py` (Python ≥ 3.10, standard library only) verifies every archive part and every extracted file. The dataset's `TASKS.md` lists all 48 tasks and its `environments/` holds the recorded package versions.
+To fetch only some tasks, pass `allow_patterns=["*.md", "*.json", "SHA256SUMS", "files.jsonl.gz", "tools/*", "archives/LIFE_06.tar.gz.part*"]` to `dataset_snapshot_download` and `--tasks LIFE_06` to `unpack.py`. `unpack.py` (Python ≥ 3.10, standard library only) verifies every archive part and every extracted file. The dataset's `TASKS.md` lists all 48 tasks.
 
 ## 2. Bind the data to this checkout
 
+In the checkout:
+
 ```bash
-git clone https://github.com/PKU-YuanGroup/RSI4S.git && cd RSI4S
 python tools/setup_data.py --bundle /data/rsi4s/rsi4s_task48 --out /data/rsi4s/bound \
-    --credentials /path/to/credentials.json \
-    --python-science /envs/science/bin/python  --python-pending /envs/pending/bin/python \
-    --python-medrsee /envs/medrsee/bin/python  --python-mat01 /envs/mat01/bin/python \
-    --python-chem01  /envs/chem01/bin/python
+    --credentials /path/to/credentials.json --python /envs/rsi4s/bin/python
 ```
 
-`setup_data.py` copies no data. It creates `/data/rsi4s/bound` (links into the dataset plus small writable state) and writes your paths into the six task-group configs under `configs/` (`source /data/rsi4s/bound/env.sh` sets the optional `MEDRSEE_HOME` default). To change paths, run it again with a new `--out`, and prepare new studies with `--fresh-releases`. The dataset contains Test labels (`organizer/`); never expose it to the agents' environment.
+`setup_data.py` copies no data. It creates `/data/rsi4s/bound` (links into the dataset plus small writable state) and writes your paths and the `rsi4s` interpreter into the six task-group configs under `configs/` (`source /data/rsi4s/bound/env.sh` sets the optional `MEDRSEE_HOME` default). To change paths, run it again with a new `--out`, and prepare new studies with `--fresh-releases`. The dataset contains Test labels (`organizer/`); never expose it to the agents' environment.
 
 ## 3. Run L3 and L4
 
 ```bash
-PY=/envs/medrsee/bin/python
+PY=/envs/rsi4s/bin/python
 $PY -m maintenance.task48_prepare prepare --out runs/l3l4-qwen --model qwen3.8-flash --fresh-releases
 $PY -m maintenance.task48 launch --out runs/l3l4-qwen
 ```
 
-`prepare` checks every task group (data, environments, simulator fingerprints), freezes code + data + environment into `provenance/releases/<run>/`, builds the ENV_02 Test-input cache when ENV_02 is included (≈3 GB, first time only) and sends one connectivity request to the model. Nothing starts if a check fails. `launch` then runs all **fixed (L3)** jobs, then all **coevolve (L4)** jobs, in waves of 16, and writes the report. A full study is 96 four-hour jobs: run `launch` under `tmux`/`nohup`.
+`prepare` checks every task group (data, the `rsi4s` environment, simulator sources), freezes code + data + environment into `provenance/releases/<run>/`, builds the ENV_02 Test-input cache when ENV_02 is included (≈3 GB, first time only) and sends one connectivity request to the model. Nothing starts if a check fails. `launch` then runs all **fixed (L3)** jobs, then all **coevolve (L4)** jobs, in waves of 16, and writes the report. A full study is 96 four-hour jobs: run `launch` under `tmux`/`nohup`.
 
 Useful `prepare` options:
 
@@ -163,7 +148,7 @@ Keep task set, budget, initial agent and hardware identical when comparing model
 
 <br>
 
-These results come from our reference machine. Except for the L5 protein chain, every number is a single run. They show that the benchmark separates models and settings; they are not a final ranking. Click a figure for full resolution.
+These results come from our reference machine, with the five per-group Python environments that preceded `rsi4s` (the header of `requirements.txt` lists the versions that changed when they were merged). Except for the L5 protein chain, every number is a single run. They show that the benchmark separates models and settings; they are not a final ranking. Click a figure for full resolution.
 
 **1. Overall win share**
 

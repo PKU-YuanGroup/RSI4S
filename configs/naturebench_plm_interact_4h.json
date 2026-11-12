@@ -39,7 +39,7 @@
   "model": "deepseek-flash",
   "naturebench_active": true,
   "naturebench_source_root": "/path/to/rsi4s-bound/sources",
-  "python": "/path/to/envs/science/bin/python",
+  "python": "/path/to/envs/rsi4s/bin/python",
   "reuse_artifacts": true,
   "rounds": 40,
   "task_calls": null,

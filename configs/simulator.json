@@ -25,7 +25,7 @@
   "meta_calls": null,
   "mode": "fixed",
   "model": "deepseek-flash",
-  "python": "/path/to/envs/medrsee/bin/python",
+  "python": "/path/to/envs/rsi4s/bin/python",
   "rounds": 40,
   "sandbox_resources": {
     "threads": 4
@@ -33,11 +33,11 @@
   "simulator_environments": {
     "MAT_01": {
       "data_root": "/path/to/rsi4s_task48/simulators/MAT_01",
-      "python": "/path/to/envs/simulator-mat01/bin/python"
+      "python": "/path/to/envs/rsi4s/bin/python"
     },
     "CHEM_01": {
       "data_root": "/path/to/rsi4s_task48/simulators/CHEM_01",
-      "python": "/path/to/envs/simulator-chem01/bin/python"
+      "python": "/path/to/envs/rsi4s/bin/python"
     }
   },
   "task_calls": null,

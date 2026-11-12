@@ -22,27 +22,14 @@
 ## 运行要求
 
 - **Linux x86_64，以 root 运行。** Agent 代码在沙箱中执行：切换到专用 UID，并启用 Landlock（ABI ≥ 3）与 seccomp（`libseccomp.so.2`）。
-- **固定的硬件布局**（完整评分的 L3/L4/L5）：8 块 NVIDIA GPU（编号 0–7），每卡 2 个任务槽；**两个 CPU 插槽，每个至少 32 个物理核**（16 个槽位 × 4 核）。布局固定，是为了让每次研究的单作业资源和作业间的资源竞争都相同；CPU 布局不满足时 `prepare` 会拒绝运行。研究预算按墙钟时间计算，GPU 和 CPU 型号同样影响结果：参考机器为 8 × NVIDIA A800-SXM4-80GB、2 × Intel Xeon Platinum 8358P。只在同等硬件之间比较结果。
-- **Python 3.11 环境**，按数据集 `environments/*.requirements.txt` 安装：
-
-  | 环境 | requirements 文件 | 用途 |
-  | --- | --- | --- |
-  | `science` | `science` | NatureBench Active、PLM-interact（`LIFE_03`）、RESP（`LIFE_01`） |
-  | `pending` | `naturebench-pending-lh-v1` | 依赖较多的 NatureBench 分组 |
-  | `medrsee` | `medrsee-v4` | MedRSEE 任务、模拟器宿主、批量运行器本身 |
-  | `mat01` | `data-prep-xray-v1` | `MAT_01` X 射线衍射仪模拟器 |
-  | `chem01` | `data-prep-experiments-v1` | `CHEM_01` ChemGym 模拟器 |
-
-  所有环境都用 Python 3.11.16 建立。文件里的 `torch`、`torchvision`、`dgl` 是 CUDA 12.1 版本，PyPI 上没有；部分文件还把 pip、setuptools 各列了两次。所以先去掉打包工具行，再加两个下载源：
+- **一个 Python 环境 `rsi4s`**（Python 3.11.16），按 [`requirements.txt`](requirements.txt) 安装。所有任务组、两个模拟器和批量运行器都用它：
 
   ```bash
-  python3.11 -m venv /envs/mat01
-  grep -vE '^(pip|setuptools|wheel)==' data-prep-xray-v1.requirements.txt > req.txt
-  /envs/mat01/bin/pip install -r req.txt \
-      --extra-index-url https://download.pytorch.org/whl/cu121 -f https://data.dgl.ai/wheels/cu121/repo.html
+  git clone https://github.com/PKU-YuanGroup/RSI4S.git && cd RSI4S
+  python3.11 -m venv /envs/rsi4s && /envs/rsi4s/bin/pip install -r requirements.txt
   ```
 
-  两个模拟器环境在每个 episode 开始前都会与这些记录的包版本比对。
+  文件里已加上 `torch`、`torchvision`、`dgl` 的 CUDA 12.1 下载源。环境决定了 Agent 能用哪些库，所以只要解释器里的包与 `requirements.txt` 有任何不同（包括多装的包），`prepare` 和模拟器都会拒绝运行。
 - **模型 API。** 支持的模型（OpenAI 兼容、流式的 chat completions）：
 
   | `--model` | 提供方 |
@@ -68,30 +55,28 @@ PY
 python task48_download/tools/unpack.py --dest /data/rsi4s        # 输出 /data/rsi4s/rsi4s_task48/
 ```
 
-只要部分任务时，给 `dataset_snapshot_download` 加 `allow_patterns=["*.md", "*.json", "SHA256SUMS", "manifest/*", "environments/*", "tools/*", "archives/LIFE_06.tar.gz.part*"]`，`unpack.py` 加 `--tasks LIFE_06`。`unpack.py` 只用标准库（Python ≥ 3.10），会校验每个分卷和每个解压出的文件。数据集的 `TASKS.md` 列出全部 48 个任务，`environments/` 记录各环境的包版本。
+只要部分任务时，给 `dataset_snapshot_download` 加 `allow_patterns=["*.md", "*.json", "SHA256SUMS", "files.jsonl.gz", "tools/*", "archives/LIFE_06.tar.gz.part*"]`，`unpack.py` 加 `--tasks LIFE_06`。`unpack.py` 只用标准库（Python ≥ 3.10），会校验每个分卷和每个解压出的文件。数据集的 `TASKS.md` 列出全部 48 个任务。
 
 ## 2. 把数据绑定到代码
 
+在代码目录中运行：
+
 ```bash
-git clone https://github.com/PKU-YuanGroup/RSI4S.git && cd RSI4S
 python tools/setup_data.py --bundle /data/rsi4s/rsi4s_task48 --out /data/rsi4s/bound \
-    --credentials /path/to/credentials.json \
-    --python-science /envs/science/bin/python  --python-pending /envs/pending/bin/python \
-    --python-medrsee /envs/medrsee/bin/python  --python-mat01 /envs/mat01/bin/python \
-    --python-chem01  /envs/chem01/bin/python
+    --credentials /path/to/credentials.json --python /envs/rsi4s/bin/python
 ```
 
-`setup_data.py` 不复制数据：它建立 `/data/rsi4s/bound`（指向数据集的链接和少量可写状态），并把你的路径写入 `configs/` 下的六个任务组配置（`source /data/rsi4s/bound/env.sh` 可设置可选的 `MEDRSEE_HOME` 默认值）。路径变化时用新的 `--out` 重新运行，之后的研究用 `--fresh-releases` 准备。数据集含 Test 标签（`organizer/`），不要让 Agent 的环境访问它。
+`setup_data.py` 不复制数据：它建立 `/data/rsi4s/bound`（指向数据集的链接和少量可写状态），并把你的路径和 `rsi4s` 解释器写入 `configs/` 下的六个任务组配置（`source /data/rsi4s/bound/env.sh` 可设置可选的 `MEDRSEE_HOME` 默认值）。路径变化时用新的 `--out` 重新运行，之后的研究用 `--fresh-releases` 准备。数据集含 Test 标签（`organizer/`），不要让 Agent 的环境访问它。
 
 ## 3. 运行 L3 和 L4
 
 ```bash
-PY=/envs/medrsee/bin/python
+PY=/envs/rsi4s/bin/python
 $PY -m maintenance.task48_prepare prepare --out runs/l3l4-qwen --model qwen3.8-flash --fresh-releases
 $PY -m maintenance.task48 launch --out runs/l3l4-qwen
 ```
 
-`prepare` 检查每个任务组（数据、环境、模拟器指纹），把代码、数据和环境冻结到 `provenance/releases/<运行名>/`；包含 ENV_02 时生成其 Test 输入缓存（约 3 GB，仅首次），并向模型发一次连通性请求。任何检查失败都不会启动。`launch` 先跑完全部 **fixed（L3）**，再跑全部 **coevolve（L4）**，每批 16 个，结束后写报告。完整一次共 96 个 4 小时作业，请在 `tmux`/`nohup` 下运行 `launch`。
+`prepare` 检查每个任务组（数据、`rsi4s` 环境、模拟器源文件），把代码、数据和环境冻结到 `provenance/releases/<运行名>/`；包含 ENV_02 时生成其 Test 输入缓存（约 3 GB，仅首次），并向模型发一次连通性请求。任何检查失败都不会启动。`launch` 先跑完全部 **fixed（L3）**，再跑全部 **coevolve（L4）**，每批 16 个，结束后写报告。完整一次共 96 个 4 小时作业，请在 `tmux`/`nohup` 下运行 `launch`。
 
 常用 `prepare` 参数：
 
@@ -163,7 +148,7 @@ $PY -m maintenance.task48 launch --out runs/l5-qwen
 
 <br>
 
-以下结果来自我们的参考机器，除 L5 蛋白链外均为单次运行，用于说明基准能区分模型与设置，不作为最终排名。点击图片查看原图。
+以下结果来自我们的参考机器，使用的是合并为 `rsi4s` 之前的五个分组环境（合并时改变的包版本见 `requirements.txt` 开头）；除 L5 蛋白链外均为单次运行，用于说明基准能区分模型与设置，不作为最终排名。点击图片查看原图。
 
 **1. 总体胜率**
 

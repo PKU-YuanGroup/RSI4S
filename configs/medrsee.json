@@ -29,7 +29,7 @@
   "meta_selection_seconds": null,
   "mode": "fixed",
   "model": "deepseek-flash",
-  "python": "/path/to/envs/medrsee/bin/python",
+  "python": "/path/to/envs/rsi4s/bin/python",
   "rounds": 40,
   "sandbox_resources": {
     "threads": 4
