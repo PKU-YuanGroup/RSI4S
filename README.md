@@ -72,12 +72,12 @@ The batch runner always runs the matched pair L3 + L4 for the selected tasks; L5
 
 ## 1. Download and unpack the data
 
-The dataset is [`purshow/RSI4S-task48`](https://modelscope.cn/datasets/purshow/RSI4S-task48) on ModelScope (≈212 GB compressed, 317 GB unpacked). `rsi4s` includes `modelscope`, so the same interpreter downloads the data. If access is restricted, log in first: `/envs/rsi4s/bin/python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`.
+The dataset is [`purshow/RSI4S-Bench`](https://modelscope.cn/datasets/purshow/RSI4S-Bench) on ModelScope (≈212 GB compressed, 317 GB unpacked). `rsi4s` includes `modelscope`, so the same interpreter downloads the data. If access is restricted, log in first: `/envs/rsi4s/bin/python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`.
 
 ```bash
 /envs/rsi4s/bin/python - <<'PY'
 from modelscope.hub.snapshot_download import dataset_snapshot_download
-dataset_snapshot_download(dataset_id="purshow/RSI4S-task48", local_dir="./task48_download", max_workers=4)
+dataset_snapshot_download(dataset_id="purshow/RSI4S-Bench", local_dir="./task48_download", max_workers=4)
 PY
 /envs/rsi4s/bin/python task48_download/tools/unpack.py --dest /data/rsi4s   # -> /data/rsi4s/rsi4s_task48/
 ```

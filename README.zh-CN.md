@@ -72,12 +72,12 @@
 
 ## 1. 下载并解压数据
 
-数据集为 ModelScope 上的 [`purshow/RSI4S-task48`](https://modelscope.cn/datasets/purshow/RSI4S-task48)（压缩约 212 GB，解压后 317 GB）。`rsi4s` 已包含 `modelscope`，下载也用同一个解释器。如需登录：`/envs/rsi4s/bin/python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`。
+数据集为 ModelScope 上的 [`purshow/RSI4S-Bench`](https://modelscope.cn/datasets/purshow/RSI4S-Bench)（压缩约 212 GB，解压后 317 GB）。`rsi4s` 已包含 `modelscope`，下载也用同一个解释器。如需登录：`/envs/rsi4s/bin/python -c "from modelscope.hub.api import HubApi; HubApi().login('<token>')"`。
 
 ```bash
 /envs/rsi4s/bin/python - <<'PY'
 from modelscope.hub.snapshot_download import dataset_snapshot_download
-dataset_snapshot_download(dataset_id="purshow/RSI4S-task48", local_dir="./task48_download", max_workers=4)
+dataset_snapshot_download(dataset_id="purshow/RSI4S-Bench", local_dir="./task48_download", max_workers=4)
 PY
 /envs/rsi4s/bin/python task48_download/tools/unpack.py --dest /data/rsi4s   # 输出 /data/rsi4s/rsi4s_task48/
 ```
