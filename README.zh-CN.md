@@ -1,8 +1,31 @@
+<div align="center">
+
 # RSI4S-Bench
 
-**自我改进科研 Agent 的评测基准**：48 个科学任务，三个评测层级（L3 / L4 / L5）。
+### 面向科学研究的递归自我改进（RSI）评测基准
+
+**48 个科学任务 · 5 个科学领域 · 3 个评测层级（L3 / L4 / L5）**
+
+**由北京大学—元空AI联合实验室推出。**<br/>
+<sub>Launched by the Peking University–YuanKong Intelligence AI Joint Research Laboratory.</sub>
+
+<p>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-d97706.svg"></a>
+  <img alt="Python 3.11" src="https://img.shields.io/badge/Python-3.11-3fb950.svg">
+  <img alt="48 tasks" src="https://img.shields.io/badge/tasks-48-58a6ff.svg">
+  <img alt="Levels L3/L4/L5" src="https://img.shields.io/badge/levels-L3%20%7C%20L4%20%7C%20L5-bc8cff.svg">
+  <img alt="Budget 4 h" src="https://img.shields.io/badge/budget-4%20h%20per%20task-8b949e.svg">
+</p>
 
 [English](README.md) · **简体中文**
+
+</div>
+
+---
+
+<p align="center">
+  <img src="docs/figures/framework.png" alt="RSI4S-Bench 框架：Agent 在数据与反馈中开展研究、审视反馈、修改自身并应用修改，在 5 个领域的 48 个项目上评估科学表现" width="900"/>
+</p>
 
 每个任务给 Agent 系统一个科学目标、授权数据和共享的 **4 小时研究预算**。系统由两个角色组成：
 
@@ -22,6 +45,7 @@
 ## 运行要求
 
 - **Linux x86_64，以 root 运行。** Agent 代码在沙箱中执行：切换到专用 UID，并启用 Landlock（ABI ≥ 3）与 seccomp（`libseccomp.so.2`）。
+- **8 块 NVIDIA GPU，两个 CPU 插槽、每个至少 32 个物理核**，达不到无法运行。
 - **一个 Python 环境 `rsi4s`**（Python 3.11.16），按 [`requirements.txt`](requirements.txt) 安装。所有任务组、两个模拟器和批量运行器都用它：
 
   ```bash
@@ -191,4 +215,4 @@ L5 在 L4 的基础上继承前序任务蒸馏出的 Agent 与经验。表中只
 
 ## 许可与致谢
 
-RSI4S-Bench 基于 [NatureBench](https://github.com/FrontisAI/NatureBench)、[HyperAgents](https://github.com/facebookresearch/HyperAgents) 以及 [NOTICE](NOTICE) 和 [upstream.json](upstream.json) 中列出的科学数据集。代码许可见 [LICENSE](LICENSE) 与 [HyperAgents 许可证](HYPERAGENTS-LICENSE.md)。各任务的源数据遵循其上游许可。
+RSI4S-Bench 基于 [NatureBench](https://github.com/FrontisAI/NatureBench) 和 [HyperAgents](https://github.com/facebookresearch/HyperAgents) 构建。代码许可见 [LICENSE](LICENSE)；其中改编自 HyperAgents 的文件（文件开头已注明）遵循 [CC BY-NC-SA 4.0](HYPERAGENTS-LICENSE.md)。各任务的源数据遵循其上游许可。

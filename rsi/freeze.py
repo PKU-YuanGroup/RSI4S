@@ -24,8 +24,7 @@ def sha(path):
 
 def code_hashes():
     paths = [ROOT / 'eval_service.py', ROOT / '_evaluator_runner.py', ROOT / 'run_rsi.py',
-             ROOT / 'configs/tasks_44.txt', ROOT / 'upstream.json',
-             ROOT / 'judge_source_papers.jsonl']
+             ROOT / 'configs/tasks_44.txt', ROOT / 'judge_source_papers.jsonl']
     paths += sorted((ROOT / 'rsi').glob('*.py'))
     # The paired study scheduler, terminal scheduling and retention/reporting are
     # part of the experiment, not mutable out-of-band helpers.

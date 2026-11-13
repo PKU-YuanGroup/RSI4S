@@ -1,8 +1,31 @@
+<div align="center">
+
 # RSI4S-Bench
 
-**A benchmark for self-improving scientific agents** — 48 scientific tasks, evaluated at three levels (L3 / L4 / L5).
+### Benchmarking Recursive Self-Improvement for Science
+
+**48 scientific tasks · 5 scientific domains · 3 evaluation levels (L3 / L4 / L5)**
+
+**Launched by the Peking University–YuanKong Intelligence AI Joint Research Laboratory.**<br/>
+<sub>由北京大学—元空AI联合实验室推出。</sub>
+
+<p>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-d97706.svg"></a>
+  <img alt="Python 3.11" src="https://img.shields.io/badge/Python-3.11-3fb950.svg">
+  <img alt="48 tasks" src="https://img.shields.io/badge/tasks-48-58a6ff.svg">
+  <img alt="Levels L3/L4/L5" src="https://img.shields.io/badge/levels-L3%20%7C%20L4%20%7C%20L5-bc8cff.svg">
+  <img alt="Budget 4 h" src="https://img.shields.io/badge/budget-4%20h%20per%20task-8b949e.svg">
+</p>
 
 **English** · [简体中文](README.zh-CN.md)
+
+</div>
+
+---
+
+<p align="center">
+  <img src="docs/figures/framework.png" alt="RSI4S-Bench framework: agents conduct research, review feedback, revise themselves and apply the revisions, evaluated on 48 projects across 5 scientific domains" width="900"/>
+</p>
 
 Each task gives an agent system a scientific objective, authorized data and a shared **four-hour research budget**. Two agents work inside it:
 
@@ -22,6 +45,7 @@ The batch runner always runs the matched pair L3 + L4 for the selected tasks; L5
 ## Requirements
 
 - **Linux x86_64, run as root.** Agent code runs in a sandbox that drops to a dedicated UID and applies Landlock (ABI ≥ 3) and seccomp (`libseccomp.so.2`).
+- **8 NVIDIA GPUs and two CPU sockets with at least 32 physical cores each**; it does not run on less.
 - **One Python environment, `rsi4s`** (Python 3.11.16), from [`requirements.txt`](requirements.txt). Every task group, both simulators and the batch runner use it:
 
   ```bash
@@ -191,4 +215,4 @@ Beyond the primary metrics, these checks cover synthetic difficulty (SCScore, RA
 
 ## License and acknowledgments
 
-RSI4S-Bench builds on [NatureBench](https://github.com/FrontisAI/NatureBench), [HyperAgents](https://github.com/facebookresearch/HyperAgents) and the scientific datasets listed in [NOTICE](NOTICE) and [upstream.json](upstream.json). Code: [LICENSE](LICENSE) and [HyperAgents license](HYPERAGENTS-LICENSE.md). Each task's source data keeps its upstream terms.
+RSI4S-Bench builds on [NatureBench](https://github.com/FrontisAI/NatureBench) and [HyperAgents](https://github.com/facebookresearch/HyperAgents). Code: [LICENSE](LICENSE); files adapted from HyperAgents (marked in their headers) are under [CC BY-NC-SA 4.0](HYPERAGENTS-LICENSE.md). Each task's source data keeps its upstream terms.
