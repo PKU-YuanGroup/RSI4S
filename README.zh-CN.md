@@ -1,13 +1,6 @@
 <div align="center">
 
-# RSI4S-Bench
-
-### 面向科学研究的递归自我改进（RSI）评测基准
-
-**48 个科学任务 · 5 个科学领域 · 3 个评测层级（L3 / L4 / L5）**
-
-**由北京大学—元空AI联合实验室推出。**<br/>
-<sub>Launched by the Peking University–YuanKong Intelligence AI Joint Research Laboratory.</sub>
+<img src="docs/figures/hero.zh-CN.png" alt="RSI4S-Bench：面向科学研究的递归自我改进评测基准，北京大学—元空 AI 联合实验室。Task Agent 做研究并得到评分，Meta Agent 读分数、改写 Task Agent 后再跑一轮" width="1000"/>
 
 <p>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-d97706.svg"></a>
@@ -23,10 +16,6 @@
 
 ---
 
-<p align="center">
-  <img src="docs/figures/framework.png" alt="RSI4S-Bench 框架：Agent 在数据与反馈中开展研究、审视反馈、修改自身并应用修改，在 5 个领域的 48 个项目上评估科学表现" width="900"/>
-</p>
-
 每个任务给 Agent 系统一个科学目标、授权数据和共享的 **4 小时研究预算**。系统由两个角色组成：
 
 - **Task Agent**：读取任务说明，写代码、训练模型、在验证集上评估，并提出标签请求。
@@ -41,6 +30,14 @@
 | **L5** | 每个任务内同 L4，另外沿任务链传递蒸馏后的 Agent 与科研笔记 | 批量运行器加 `--chain` |
 
 批量运行器对所选任务总是成对运行 L3 + L4；L5 是单独的一次研究。
+
+## 案例：Gemini-4-Argon 的自我改进
+
+<p align="center">
+  <a href="docs/figures/argon-cases.zh-CN.png"><img src="docs/figures/argon-cases.zh-CN.png" alt="Gemini-4-Argon 在 L4 的四个任务：蛋白序列设计、酶最适 pH、分子连接体设计、RNA 二级结构。每个任务跟踪一个样本的逐轮变化，轮次之间标出 Meta Agent 的改写，并给出验证集指标的前后对比" width="1000"/></a>
+</p>
+
+来自已保存的 L4 验证集结果。每格跟踪一个样本的逐轮变化，右上角数字为全验证集指标。
 
 ## 运行要求
 
@@ -208,8 +205,6 @@ L5 在 L4 的基础上继承前序任务蒸馏出的 Agent 与经验。表中只
 在主指标之外，补充合成难度（SCScore、RAscore）、连接体几何和 RNA 结构等检查；“—”表示暂无该项成绩。连接体的 Geom. 列是生成分子同时通过 PoseBusters 键长、键角、内部碰撞和环/双键平面性检查的比例，无法判定的分子计入分母。
 
 **初步结论：** 主指标只检查化学有效性，补充检查能发现它看不到的问题。例如 Deepseek-4.1-Flash 的 L3 连接体有效率为 91.76%，但可判定的 2,226 个分子全部未通过键长和键角检查（Geom. = 0），L4 回升到 58.15%。
-
-*注：`MAT_01`、`CHEM_01` 的已有结果来自 episode 协议不同的批次；剔除这两项后，L3/L4 的模型排名不变。*
 
 </details>
 
