@@ -1,13 +1,6 @@
 <div align="center">
 
-# RSI4S-Bench
-
-### Benchmarking Recursive Self-Improvement for Science
-
-**48 scientific tasks · 5 scientific domains · 3 evaluation levels (L3 / L4 / L5)**
-
-**Launched by the Peking University–YuanKong Intelligence AI Joint Research Laboratory.**<br/>
-<sub>由北京大学—元空AI联合实验室推出。</sub>
+<img src="docs/figures/hero.png" alt="RSI4S-Bench, Benchmarking Recursive Self-Improvement for Science, by the Peking University–YuanKong Intelligence AI Joint Research Laboratory: the Task Agent does research and gets scored; the Meta Agent reads the scores, rewrites the Task Agent and runs it again" width="1000"/>
 
 <p>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-d97706.svg"></a>
@@ -23,10 +16,6 @@
 
 ---
 
-<p align="center">
-  <img src="docs/figures/framework.png" alt="RSI4S-Bench framework: agents conduct research, review feedback, revise themselves and apply the revisions, evaluated on 48 projects across 5 scientific domains" width="900"/>
-</p>
-
 Each task gives an agent system a scientific objective, authorized data and a shared **four-hour research budget**. Two agents work inside it:
 
 - **Task Agent** reads the task, writes and runs code, trains models, evaluates on validation data and requests labels.
@@ -41,6 +30,14 @@ After research, Meta selects one existing model; the host freezes it and scores 
 | **L5** | L4 within each task, plus the distilled agents and research notes carried along a task chain. | batch runner with `--chain` |
 
 The batch runner always runs the matched pair L3 + L4 for the selected tasks; L5 is a separate study.
+
+## Examples: Gemini-4-Argon improving itself
+
+<p align="center">
+  <a href="docs/figures/argon-cases.png"><img src="docs/figures/argon-cases.png" alt="Four Gemini-4-Argon L4 runs on protein sequence design, enzyme optimum pH, molecular linker design and RNA secondary structure: one sample per task across rounds, each Meta Agent rewrite marked between rounds, validation metric before and after" width="1000"/></a>
+</p>
+
+Saved L4 validation runs. Each panel follows one sample across rounds; the numbers at the top right cover the full validation set.
 
 ## Requirements
 
@@ -208,8 +205,6 @@ L5 is L4 plus the agents and experience distilled from earlier tasks in the chai
 Beyond the primary metrics, these checks cover synthetic difficulty (SCScore, RAscore), linker geometry and RNA structure; “—” marks an unavailable score. The linker Geom. column is the share of generated molecules that pass all PoseBusters bond-length, bond-angle, internal-clash and ring/double-bond flatness checks; molecules that cannot be checked stay in the denominator.
 
 **Takeaway:** the primary metrics check only chemical validity, and the extra checks catch problems they miss. For example, Deepseek-4.1-Flash reaches 91.76% linker validity at L3, yet all 2,226 checkable molecules fail the bond-length and bond-angle checks (Geom. = 0); at L4 this recovers to 58.15%.
-
-*Note: the existing `MAT_01` and `CHEM_01` results come from batches with different episode protocols; excluding these two tasks leaves the L3/L4 model ranking unchanged.*
 
 </details>
 
