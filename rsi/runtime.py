@@ -530,10 +530,6 @@ class Session:
             context = {**context, 'agent_version': identity, 'meta_version': meta_version,
                        'visible_history': visible, 'artifact_parent': artifact_parent,
                        'source_files': manifest['files'], 'kind': kind}
-            if not self.distillation:
-                from rsi.task_trajectories import complete_history_context
-                context = complete_history_context(context, self.store,
-                                                   deadline=time.monotonic()+self.remaining())
             write_json(base / 'context.json', context)
             tool_results = ToolResults(base / 'tool-results', run_id, policy=policy)
             if kind == 'task':
@@ -611,8 +607,6 @@ class Session:
                         break
                     try:
                         prepared = self.prepare_messages(request.get('messages'))
-                        from rsi.task_trajectories import history_review_purpose
-                        purpose = history_review_purpose(context, request, prepared)
                     except ValueError as exc:
                         # A malformed request is a protocol error that the agent
                         # can repair in the same session and cumulative budget.
@@ -637,8 +631,7 @@ class Session:
                                      next_api_call=self.client.budget.calls + 1,
                                      raw_prompt=str(audit), **context_metrics)
                     try:
-                        options = {'purpose': purpose} if purpose else {}
-                        response = {'text': self.client.complete(messages, kind, identity, self.remaining(), **options)}
+                        response = {'text': self.client.complete(messages, kind, identity, self.remaining())}
                     except APIOutputTruncated as exc:
                         response = {'error': str(exc), 'text': str(exc)}
                     except APIContextExceeded as exc:

@@ -27,7 +27,6 @@ GEMINI_API_SOURCE = 'https://ai.google.dev/gemini-api/docs/latest-model'
 KIMI_API_SOURCE = 'https://platform.kimi.ai/docs/api/chat.md'
 KIMI_MODEL_SOURCE = 'https://platform.kimi.ai/docs/api/models-overview.md'
 KIMI_THINKING_SOURCE = 'https://platform.kimi.ai/docs/guide/use-thinking-models.md'
-COMPLETE_HISTORY_MAX_OUTPUT = 16384
 # transport_v2: every model streams. A request fails after this many seconds
 # without a token. The absolute limit only applies to responses that are not SSE.
 TRANSPORT_PROTOCOL = 'transport_v2'
@@ -157,8 +156,7 @@ def generation_settings(model):
                 stream=True, stream_options=dict(include_usage=True),
                 transport_protocol=TRANSPORT_PROTOCOL, token_stall_seconds=TOKEN_STALL_SECONDS,
                 request_timeout_seconds=API_REQUEST_TIMEOUT_SECONDS,
-                complete_history_max_output=COMPLETE_HISTORY_MAX_OUTPUT,
-                complete_history_thinking='enabled', reasoning_effort='provider_default',
+                reasoning_effort='provider_default',
                 thinking_budget='provider_default',
                 context_policy='Replay role/content only; do not replay reasoning_content')
     return settings
@@ -182,9 +180,9 @@ def provider_block(settings, content):
     return None
 
 
-def agent_wire_messages(messages, settings, role, purpose):
+def agent_wire_messages(messages, settings, role):
     """Clarify only the JSON wire structure; leave caller-owned history intact."""
-    if role not in ('task','meta') or purpose or not settings.get('agent_json_protocol'):
+    if role not in ('task','meta') or not settings.get('agent_json_protocol'):
         return messages
     instruction=('JSON WIRE FORMAT: Return exactly one JSON object, without XML tags, Markdown or a list. '
         'For a tool call use exactly {"tool_name":"NAME","tool_input":{"PARAMETER":"VALUE"}}. '

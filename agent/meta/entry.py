@@ -3,22 +3,16 @@ import json
 from pathlib import Path
 import tools
 from protocol import get_tooluse_prompt, parse_response
-from full_history import review_step
 
 
 def step(state, context, response):
-    reviewed = review_step(state, context, response)
-    if reviewed is not None:
-        state, request = reviewed
-        if request is not None:
-            return {'state': state, 'request': request}
     if 'messages' not in state:
         # A task chain's closing session distills Agents and notes for the next task.
         prompt = 'distill_prompt.txt' if context.get('chain_distillation') else 'prompt.txt'
         template = Path(__file__).with_name(prompt).read_text()
         instruction = template.replace('{repo_path}', context.get('repo_path', '<development repository>'))
         inputs = {key: value for key, value in context.items()
-                  if key not in ('resources', 'research_budget', 'session_info', 'source_files', 'complete_task_trajectories')}
+                  if key not in ('resources', 'research_budget', 'session_info', 'source_files')}
         instruction = instruction.replace('{inputs}', json.dumps(inputs, ensure_ascii=False))
         if context.get('final_selection_only'):
             instruction = ('Research has ended. Read the historical trajectories and verified validation '
@@ -33,18 +27,10 @@ def step(state, context, response):
                            'when the comparison is adequately supported. Account for recorded '
                            'fitting overlap when interpreting validation scores. '
                            'Use finish_experiment to select and complete this review. Test is unavailable.')
-        if state.get('history_review_complete'):
-            instruction += ('\nFor BIO-07, the complete Task trajectories have already been reviewed '
-                            'segment by segment in this session. The completed_history_review notes '
-                            'below preserve that review; use further raw history reads to resolve '
-                            'uncertainties before deciding. Compare claims with the actual label roles.')
         descriptions = tools.describe(context)
         state = {**state, 'messages': [
             {'role': 'system', 'content': get_tooluse_prompt(descriptions)},
             {'role': 'user', 'content': instruction}], 'waiting': 'llm'}
-        if state.get('history_review_summary'):
-            state['messages'].append({'role': 'user', 'content': json.dumps({
-                'completed_history_review': state['history_review_summary']}, ensure_ascii=False)})
         if context.get('kind') == 'meta':
             state['messages'].append({'role': 'user', 'content': json.dumps({
                 key: context[key] for key in ('eval_path', 'interface_path') if key in context})})
