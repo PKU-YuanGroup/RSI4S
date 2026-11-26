@@ -2,7 +2,9 @@
 import json
 from pathlib import Path
 import tools
-from protocol import get_tooluse_prompt, parse_response
+from protocol import get_tooluse_prompt, is_plain_text, parse_response
+
+HANDOFF_CHECKS = 3  # confirmation prompts at most, per stage, before a plain-text reply finishes
 
 
 def step(state, context, response):
@@ -40,16 +42,25 @@ def step(state, context, response):
         text = response['text']
         state['messages'].append({'role': 'assistant', 'content': text})
         try:
-            action = parse_response(text)
-            if ('response' in action and not state.get('tool_calls') and not state.get('handoff_check')
-                    and not context.get('final_selection_only')):
+            action = parse_response(text, repair_final=bool(state.get('tool_calls')))
+            checks = int(state.get('handoff_check') or 0)
+            if ('response' in action and not state.get('tool_calls') and not context.get('final_selection_only')
+                    and (not checks or (is_plain_text(text) and checks < HANDOFF_CHECKS))):
                 # A final response before any tool call is usually a plan, not a decision. Ask once; a repeated
-                # final response finishes as before. Final selection already requires a selected artifact.
-                state['handoff_check'] = True
+                # <json> final response finishes. A plain-text reply is asked again (observed: an Agent answered
+                # with a further plan), at most HANDOFF_CHECKS prompts in all; then it finishes as before. Final
+                # selection already requires a selected artifact.
+                state['handoff_check'] = checks + 1
                 state['messages'].append({'role': 'user', 'content': (
                     'Your message is a final response. A final response ends this Meta stage and is recorded as '
                     'its decision, but no tool has been used in this stage yet. To finish now, send your final '
-                    'response again. Otherwise continue with exactly one tool call.')})
+                    'response again as <json>{"response": "..."}</json>. Otherwise continue with exactly one tool '
+                    'call.'
+                    if not checks else
+                    'Your message is plain text, which is read as a final response: it ends this Meta stage and is '
+                    'recorded as its decision, but no tool has been used in this stage yet. To finish now, return '
+                    'your final response as <json>{"response": "..."}</json>. Otherwise continue with exactly one '
+                    'tool call.')})
             else:
                 if 'response' in action:
                     request = {'op': 'finish', 'summary': action['response']}

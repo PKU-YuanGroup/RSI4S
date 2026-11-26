@@ -127,14 +127,16 @@ def trailing_tool_call(text, start):
     return value
 
 
-def with_repairs(value, repairs, text):
+def with_repairs(value, repairs, text, repair_final=False):
     """Record repairs of the <json> wrapper together with any repair of the object itself.
 
-    Only tool calls are repaired. A final response with a damaged wrapper stays an error: it ends a stage,
-    so the Agent resends it rather than the host guessing that it was meant as a handoff."""
+    Tool calls are always repaired. A final response ends a stage, so a damaged wrapper around it is repaired
+    only when the caller allows it (the Entries do once the stage has used a tool) and only for a text
+    response. Otherwise it stays an error and the Agent resends it, rather than the host guessing that a plan
+    was meant as a handoff."""
     if not repairs:
         return value
-    if 'tool_name' not in value:
+    if 'tool_name' not in value and not (repair_final and isinstance(value.get('response'), str)):
         raise ValueError('Incomplete <json> response; return a complete JSON block.')
     kinds = list(repairs)
     if '_protocol_repair' in value:
@@ -143,7 +145,16 @@ def with_repairs(value, repairs, text):
         'raw_response_sha256': hashlib.sha256(text.encode()).hexdigest()}}
 
 
-def parse_response(text):
+def is_plain_text(text):
+    """True when parse_response reads a reply as a final response only because it holds no JSON: no <json>
+    block and no leading JSON object. The Entries use it to tell a written plan from an explicit final."""
+    return '<json>' not in text and not text.lstrip().startswith('{')
+
+
+def parse_response(text, repair_final=False):
+    """Parse one reply into a tool call or a final response.
+
+    repair_final: also repair a damaged <json> wrapper around a text final response (see with_repairs)."""
     stripped=text.strip()
     if re.match(r'</?(?:bash|tool_call|tool_use|calls|invoke|parameter)(?=[\s>/]|$)', stripped):
         raise ValueError('Unsupported tool markup; return one <json> block with tool_name and object tool_input.')
@@ -199,6 +210,11 @@ def parse_response(text):
                 raise ValueError('Malformed tool JSON; use tool_name and object tool_input.')
             continue
         if isinstance(value, dict):
+            null_tool_fields = bool(isinstance(value.get('response'), str) and {'tool_name', 'tool_input'} & value.keys()
+                                    and value.get('tool_name') is None and value.get('tool_input') is None)
+            if null_tool_fields:
+                # A final response written with empty tool fields ("tool_name": null) is a final response.
+                value = {key: item for key, item in value.items() if key not in ('tool_name', 'tool_input')}
             if 'tool_name' in value or 'tool_input' in value:
                 if ('tool_input' not in value and isinstance(value.get('tool_name'),str)
                         and len(value)>1 and not {'response','tool_calls','_protocol_repair'} & value.keys()):
@@ -227,7 +243,11 @@ def parse_response(text):
                 trailing = trailing_tool_call(text, tail_start)
                 if trailing is not None:
                     return with_repairs(trailing, repairs, text)
-                return with_repairs({'response': value['response']}, repairs, text)
+                final = {'response': value['response']}
+                if null_tool_fields:
+                    final['_protocol_repair'] = {'kind': 'null_tool_fields_v1',
+                        'raw_response_sha256': hashlib.sha256(text.encode()).hexdigest()}
+                return with_repairs(final, repairs, text, repair_final)
     # Corrupted provider tags are an attempted action, not a scientific final
     # answer. Let the same Agent repair its format without handing off a stage.
     if re.search(r'<[^<>\n]*DSML[^<>\n]*(?:>|$)', text):
