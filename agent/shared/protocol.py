@@ -96,6 +96,53 @@ def recover_outer_tool_brace(text):
     return value
 
 
+def trailing_tool_call(text, start):
+    """A tool call written after a <json> response block (narration first, then the call) is the action.
+
+    Only complete objects with string tool_name and object tool_input count. Several calls, or tool markup
+    that does not decode, are errors for repair rather than a handoff."""
+    if start is None:
+        return None
+    tail = text[start:]
+    if 'tool_name' not in tail and 'tool_input' not in tail:
+        return None
+    calls = []
+    decoder = json.JSONDecoder()
+    position = tail.find('{')
+    while position >= 0:
+        try:
+            value, end = decoder.raw_decode(tail, position)
+        except json.JSONDecodeError:
+            position = tail.find('{', position + 1)
+            continue
+        if (isinstance(value, dict) and isinstance(value.get('tool_name'), str)
+                and isinstance(value.get('tool_input'), dict)):
+            calls.append(value)
+        position = tail.find('{', end)
+    if len(calls) != 1:
+        raise ValueError('Return exactly one complete tool call, or only a final response, per message.')
+    value = {key: item for key, item in calls[0].items() if key != 'response'}
+    value['_protocol_repair'] = {'kind': 'response_then_tool_call_v1',
+        'raw_response_sha256': hashlib.sha256(text.encode()).hexdigest()}
+    return value
+
+
+def with_repairs(value, repairs, text):
+    """Record repairs of the <json> wrapper together with any repair of the object itself.
+
+    Only tool calls are repaired. A final response with a damaged wrapper stays an error: it ends a stage,
+    so the Agent resends it rather than the host guessing that it was meant as a handoff."""
+    if not repairs:
+        return value
+    if 'tool_name' not in value:
+        raise ValueError('Incomplete <json> response; return a complete JSON block.')
+    kinds = list(repairs)
+    if '_protocol_repair' in value:
+        kinds.append(value['_protocol_repair']['kind'])
+    return {**value, '_protocol_repair': {'kind': '+'.join(kinds),
+        'raw_response_sha256': hashlib.sha256(text.encode()).hexdigest()}}
+
+
 def parse_response(text):
     stripped=text.strip()
     if re.match(r'</?(?:bash|tool_call|tool_use|calls|invoke|parameter)(?=[\s>/]|$)', stripped):
@@ -112,6 +159,8 @@ def parse_response(text):
     # Decode the JSON payload before looking for its closing wrapper. Literal
     # protocol tags inside a command are data and must not truncate the action.
     blocks = []
+    tail_start = None
+    repairs = []
     if stripped.startswith('{') or json_start < 0:
         blocks = [text]
     else:
@@ -128,9 +177,18 @@ def parse_response(text):
                 raise ValueError('Malformed tool JSON; use tool_name and object tool_input.') from None
             closing = re.match(r'\s*</json>', text[end:])
             if not closing:
-                raise ValueError('Incomplete <json> response; return a complete JSON block.')
+                # One complete object followed only by stray closing braces and/or a missing end tag
+                # (observed at temperature 0). Any other text after the object stays an error to repair.
+                closing = re.match(r'(?P<braces>(?:\s*\})*)\s*(?P<tag></json>|\Z)', text[end:])
+                if not closing:
+                    raise ValueError('Incomplete <json> response; return a complete JSON block.')
+                if closing.group('braces'):
+                    repairs.append('extra_closing_brace_v1')
+                if not closing.group('tag'):
+                    repairs.append('missing_json_close_v1')
             blocks.append(text[begin:end])
-            cursor = text.find('<json>', end + closing.end())
+            tail_start = end + closing.end()
+            cursor = text.find('<json>', tail_start)
         if len(blocks) != 1:
             raise ValueError('Return only one tool call or final response per message.')
     for block in blocks:
@@ -159,9 +217,17 @@ def parse_response(text):
                             'raw_response_sha256':hashlib.sha256(text.encode()).hexdigest()}}
                 if not isinstance(value.get('tool_name'), str) or not isinstance(value.get('tool_input'), dict):
                     raise ValueError('A tool call requires string tool_name and object tool_input.')
-                return value
+                if 'response' in value:
+                    # Narration written next to a complete tool call is not a handoff: the call is the action.
+                    value = {key: item for key, item in value.items() if key != 'response'}
+                    value['_protocol_repair'] = {'kind': 'narration_with_tool_call_v1',
+                        'raw_response_sha256': hashlib.sha256(text.encode()).hexdigest()}
+                return with_repairs(value, repairs, text)
             if 'response' in value:
-                return {'response': value['response']}
+                trailing = trailing_tool_call(text, tail_start)
+                if trailing is not None:
+                    return with_repairs(trailing, repairs, text)
+                return with_repairs({'response': value['response']}, repairs, text)
     # Corrupted provider tags are an attempted action, not a scientific final
     # answer. Let the same Agent repair its format without handing off a stage.
     if re.search(r'<[^<>\n]*DSML[^<>\n]*(?:>|$)', text):

@@ -41,13 +41,24 @@ def step(state, context, response):
         state['messages'].append({'role': 'assistant', 'content': text})
         try:
             action = parse_response(text)
-            if 'response' in action:
-                request = {'op': 'finish', 'summary': action['response']}
+            if ('response' in action and not state.get('tool_calls') and not state.get('handoff_check')
+                    and not context.get('final_selection_only')):
+                # A final response before any tool call is usually a plan, not a decision. Ask once; a repeated
+                # final response finishes as before. Final selection already requires a selected artifact.
+                state['handoff_check'] = True
+                state['messages'].append({'role': 'user', 'content': (
+                    'Your message is a final response. A final response ends this Meta stage and is recorded as '
+                    'its decision, but no tool has been used in this stage yet. To finish now, send your final '
+                    'response again. Otherwise continue with exactly one tool call.')})
             else:
-                request = tools.dispatch(action, context)
-            state['waiting'] = 'tool'
-            state['last_action'] = action
-            return {'state': state, 'request': request}
+                if 'response' in action:
+                    request = {'op': 'finish', 'summary': action['response']}
+                else:
+                    request = tools.dispatch(action, context)
+                    state['tool_calls'] = state.get('tool_calls', 0) + 1
+                state['waiting'] = 'tool'
+                state['last_action'] = action
+                return {'state': state, 'request': request}
         except (ValueError, KeyError, TypeError) as exc:
             state['messages'].append({'role': 'user', 'content': str(exc)})
     else:

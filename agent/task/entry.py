@@ -25,13 +25,23 @@ def step(state, context, response):
         state['messages'].append({'role': 'assistant', 'content': text})
         try:
             action = parse_response(text)
-            if 'response' in action:
-                request = {'op': 'finish', 'summary': action['response']}
+            if 'response' in action and not state.get('tool_calls') and not state.get('handoff_check'):
+                # A final response before any tool call is usually a plan, not a handoff. Ask once; a repeated
+                # final response hands off as before.
+                state['handoff_check'] = True
+                state['messages'].append({'role': 'user', 'content': (
+                    'Your message is a final response. A final response ends this Task stage and hands off to Meta, '
+                    'but no tool has been used in this stage yet. To hand off now, send your final response again. '
+                    'Otherwise continue with exactly one tool call.')})
             else:
-                request = tools.dispatch(action, context)
-            state['waiting'] = 'tool'
-            state['last_action'] = action
-            return {'state': state, 'request': request}
+                if 'response' in action:
+                    request = {'op': 'finish', 'summary': action['response']}
+                else:
+                    request = tools.dispatch(action, context)
+                    state['tool_calls'] = state.get('tool_calls', 0) + 1
+                state['waiting'] = 'tool'
+                state['last_action'] = action
+                return {'state': state, 'request': request}
         except (ValueError, KeyError, TypeError) as exc:
             state['messages'].append({'role': 'user', 'content': str(exc)})
     else:
