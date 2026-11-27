@@ -343,17 +343,13 @@ class APIClient:
                     'judge', 'model_limits', None)
         return judge_limits(self.model_limits)
 
-    def complete(self, messages, role, version, remaining, *, purpose=None):
-        if purpose not in (None, 'complete_task_history') or (purpose and role != 'meta'):
-            raise ValueError('Complete-history API settings require a Meta review request')
+    def complete(self, messages, role, version, remaining):
         def request(seconds):
             deadline = time.monotonic() + seconds
             self._resolve_max_output(seconds, require_context=role == 'judge')
             seconds = deadline - time.monotonic()
             if seconds <= 0:
                 raise BudgetExceeded('Solve time exhausted during model metadata request')
-            if purpose:
-                return self._complete_once(messages, role, version, seconds, purpose=purpose)
             return self._complete_once(messages, role, version, seconds)
         return self._retry(request, role, version, remaining)
 
@@ -363,12 +359,10 @@ class APIClient:
                     last_token_seconds=last_token_seconds, timeout_kind=timeout_kind,
                     absolute_fallback=absolute_fallback)
 
-    def _complete_once(self, messages, role, version, seconds, *, purpose=None):
+    def _complete_once(self, messages, role, version, seconds):
         from rsi.providers import agent_wire_messages
-        messages = agent_wire_messages(messages, self.provider_settings, role, purpose)
+        messages = agent_wire_messages(messages, self.provider_settings, role)
         maximum = self.max_output
-        if purpose == 'complete_task_history':
-            maximum = min(maximum, self.provider_settings['complete_history_max_output'])
         if role == 'judge':
             from rsi.judge_context import judge_limits, require_context
             limits = judge_limits(self.model_limits)
@@ -382,11 +376,7 @@ class APIClient:
                    **self.provider_settings['request_options']}
         # HyperAgents uses tagged JSON tool calls and normal final answers.
         # The independent validity judge retains its original JSON-only format.
-        if purpose == 'complete_task_history':
-            request['response_format'] = {'type': 'json_object'}
-            # Review is a Meta model call and retains the same thinking policy
-            # as ordinary research and final selection for every provider.
-        elif role not in ('meta', 'task'):
+        if role not in ('meta', 'task'):
             request['response_format'] = {'type': 'json_object'}
         elif self.stop_after_action:
             # The leading literal newline cannot occur unescaped inside a valid
@@ -508,9 +498,6 @@ class APIClient:
             choice = choices[0] if isinstance(choices, list) and choices and isinstance(choices[0], dict) else {}
             message = choice.get('message')
             content = message.get('content') if isinstance(message, dict) else None
-            # Always-on provider reasoning can consume the whole review limit and
-            # leave empty content: that is truncation, not a transport failure.
-            truncated = purpose == 'complete_task_history' and choice.get('finish_reason') == 'length'
             from rsi.providers import provider_block
             block = provider_block(self.provider_settings, content)
             if block:
@@ -521,7 +508,7 @@ class APIClient:
                                  content_characters=len(content) if isinstance(content, str) else None)
                 raise APIRequestError(f'Provider safety filter blocked the response ({block}); '
                                       'not delivered to the Agent', retryable=True, http_status=status)
-            if not truncated and (not isinstance(content, str) or not content.strip()):
+            if not isinstance(content, str) or not content.strip():
                 raise APIRequestError('API response has no nonempty text content', retryable=True, http_status=status)
             self.journal.add('api_end', call=call, role=role, version=version,
                              seconds=time.monotonic() - started,
@@ -530,11 +517,8 @@ class APIClient:
                              stream_events=stream.events if stream is not None else None,
                              finish_reason=choice.get('finish_reason'),
                              **self._transport_fields(stream, last_token_seconds, None, absolute_fallback))
-            if truncated:
-                raise APIOutputTruncated('Complete-history evidence notes reached the output limit; '
-                                         'retry this segment with shorter, complete JSON notes.')
             content = content.replace(self.key, '[REDACTED]')
-            if self.stop_after_action and role in ('meta', 'task') and purpose is None:
+            if self.stop_after_action and role in ('meta', 'task'):
                 bounded = bounded_agent_response(content, choice.get('finish_reason'))
                 self.journal.add('api_action_bounded', call=call, raw_characters=len(content),
                                  delivered_characters=len(bounded), finish_reason=choice.get('finish_reason'))

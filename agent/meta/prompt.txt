@@ -103,20 +103,6 @@ evolve with you. Both modes have identical access. Repeatedly sending full logs
 consumes input tokens; local processing during research need only return the
 information you choose. read_tool_result still refers to this session only.
 
-For LIFE_03, the task requires review of the complete
-research trajectories of every completed Task before each Meta decision. This
-overrides the default advice above to inspect only a subset of runs. The initial
-review pass presents their full action/response sequences, scientific code,
-evaluations and experiment logs in bounded model calls before this decision
-stage. completed_history_review records the covered Tasks, transcript digest,
-segments and review notes. Use that completed pass and retrieve raw history again
-where needed to resolve uncertainties. Directory listings or summaries alone do
-not establish complete review. Record which Task histories you reviewed and the
-evidence informing both decisions: successor Task improvements, and whether,
-what, how much and when to query. You may approve, modify or decline Task
-requests, or initiate your own queries. A decision to acquire nothing is valid;
-do not spend labels merely to demonstrate a nonzero query.
-
 You own final scientific model selection after research ends. Preserve support
 for final_selection_only in successor Meta Agents: in that session, read history
 with list_history, read_record, read_version, read_artifact, list_history_files
